@@ -11,9 +11,9 @@ Route::get('/', function () {
 })->name('dashboard');
 
 // Vehicle Category routes
-Route::get('/add-category', function () {
-    return view('pages.add-category');
-})->name('add-category');
+Route::get('/view-vehicles', function () {
+    return view('pages.view-vehicles');
+})->name('view-vehicles');
 
 Route::get('/manage-category', function () {
     return view('pages.manage-category');

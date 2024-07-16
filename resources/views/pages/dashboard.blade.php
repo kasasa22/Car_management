@@ -44,7 +44,7 @@
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">Incoming Vehicles</h5>
+                <h5 class="card-title">Total Revenue</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-car-front-fill"></i>
@@ -61,7 +61,7 @@
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">Outgoing Vehicles</h5>
+                <h5 class="card-title">Total Expense</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-ev-front"></i>
@@ -95,7 +95,7 @@
           <div class="col-xxl-4 col-xl-12">
             <div class="card info-card customers-card">
               <div class="card-body">
-                <h5 class="card-title">Personal Cars</h5>
+                <h5 class="card-title">Available Cars</h5>
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-cash"></i>
