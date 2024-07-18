@@ -21,12 +21,12 @@
      <div class="card">
         <div class="card-header">
             <b>List of Expenses</b>
-           
+
         </div>
          <table class="table table-condensed table-bordered table-hover datatable no-footer">
            <thead>
              <tr>
-               <th>Name</th>
+               <th>Car Name</th>
                <th>Ext.</th>
                <th>City</th>
                <th data-type="date" data-format="YYYY/MM/DD">Start Date</th>
