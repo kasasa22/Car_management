@@ -8,11 +8,11 @@
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1>Vehicles</h1>
+    <h1>View On Installments</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active">Vehicles</li>
+        <li class="breadcrumb-item active">View On Installments</li>
       </ol>
     </nav>
   </div><!-- End Page Title -->
@@ -20,7 +20,7 @@
   <section class="section dashboard">
     <div class="card">
       <div class="card-header">
-        <b>List of Vehicles</b>
+        <b>Vehicles On Installments</b>
       </div>
       <div class="card">
         <div class="card-body">
@@ -31,23 +31,24 @@
                 <th scope="col">#</th>
                 <th scope="col">Vehicle Name</th>
                 <th scope="col">Vehicle No.</th>
-                <th scope="col">Color</th>
-                <th scope="col">Model</th>
-                <th scope="col">Status</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($vehicles as $vehicle)
+              <!-- Dynamic Data Rows -->
               <tr>
-                <th scope="row">{{ $loop->iteration }}</th>
-                <td>{{ $vehicle->name }}</td>
-                <td>{{ $vehicle->number }}</td>
-                <td>{{ $vehicle->color }}</td>
-                <td>{{ $vehicle->model }}</td>
-                <td>{{ $vehicle->status }}</td>
-                <td><button class="btn btn-primary view-btn" data-id="{{ $vehicle->id }}">View</button></td>
-              @endforeach
+                <th scope="row">1</th>
+                <td>Toyota Lexus</td>
+                <td>UBK479X</td>
+                <td><button class="btn btn-primary view-btn" data-vehicle='{"name":"Toyota Lexus","number":"UBK479X","color":"White","model":"2008","customerName":"Katoko Zainabu","customerContact":"0787423182/0755364787","amountSold":"29,500,000","amountPaid":"16,500,000","totalAmount":"29,500,000","balance":"0","dateBought":"June","period":"1 Month","status":"Cleared","amountCredited":"11,500,000","monthlyDeposits":"June: 5,000,000, July: 11,500,000"}'>View</button></td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Toyota Rumion</td>
+                <td>UBQ030S</td>
+                <td><button class="btn btn-primary view-btn" data-vehicle='{"name":"Toyota Rumion","number":"UBQ030S","color":"White","model":"2010","customerName":"Kabuga Abbey","customerContact":"779216401","amountSold":"31,000,000","amountPaid":"11,000,000","totalAmount":"31,000,000","balance":"11,000,000","dateBought":"May","period":"1 month and two weeks","status":"Expired Time","amountCredited":"0","monthlyDeposits":"N/A"}'>View</button></td>
+              </tr>
+              <!-- Add more rows as needed -->
             </tbody>
           </table>
           <!-- End Vehicles Table -->
@@ -71,7 +72,9 @@
       </div>
     </div>
   </section>
-</main>
+
+</main><!-- End #main -->
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Modal Structure -->
@@ -114,33 +117,29 @@
 
     viewButtons.forEach(button => {
       button.addEventListener('click', function () {
-        const vehicleId = this.getAttribute('data-id');
+        const vehicle = JSON.parse(this.getAttribute('data-vehicle'));
 
-        fetch(`/vehicles/${vehicleId}`)
-          .then(response => response.json())
-          .then(vehicle => {
-            const detailsList = document.getElementById('vehicleDetails');
-            detailsList.innerHTML = `
-              <li><strong>Vehicle Name:</strong> ${vehicle.name}</li>
-              <li><strong>Vehicle No.:</strong> ${vehicle.number}</li>
-              <li><strong>Color:</strong> ${vehicle.color}</li>
-              <li><strong>Model:</strong> ${vehicle.model}</li>
-              <li><strong>Status:</strong> ${vehicle.status}</li>
-              <li><strong>Customer Name:</strong> ${vehicle.customer_name}</li>
-              <li><strong>Customer Contact:</strong> ${vehicle.customer_contact}</li>
-              <li><strong>Amount Sold:</strong> ${vehicle.amount_sold}</li>
-              <li><strong>Amount Paid:</strong> ${vehicle.amount_paid}</li>
-              <li><strong>Total Amount:</strong> ${vehicle.total_amount}</li>
-              <li><strong>Balance:</strong> ${vehicle.balance}</li>
-              <li><strong>Date Bought:</strong> ${vehicle.date_bought}</li>
-              <li><strong>Period:</strong> ${vehicle.period}</li>
-              <li><strong>Amount Credited:</strong> ${vehicle.amount_credited}</li>
-              <li><strong>Monthly Deposit:</strong> ${vehicle.monthly_deposit}</li>
-            `;
+        const detailsList = document.getElementById('vehicleDetails');
+        detailsList.innerHTML = `
+          <li><strong>Vehicle Name:</strong> ${vehicle.name}</li>
+          <li><strong>Vehicle No.:</strong> ${vehicle.number}</li>
+          <li><strong>Color:</strong> ${vehicle.color}</li>
+          <li><strong>Model:</strong> ${vehicle.model}</li>
+          <li><strong>Customer Name:</strong> ${vehicle.customerName}</li>
+          <li><strong>Customer Contact:</strong> ${vehicle.customerContact}</li>
+          <li><strong>Amount Sold:</strong> ${vehicle.amountSold}</li>
+          <li><strong>Amount Paid:</strong> ${vehicle.amountPaid}</li>
+          <li><strong>Total Amount:</strong> ${vehicle.totalAmount}</li>
+          <li><strong>Balance:</strong> ${vehicle.balance}</li>
+          <li><strong>Date Bought:</strong> ${vehicle.dateBought}</li>
+          <li><strong>Period:</strong> ${vehicle.period}</li>
+          <li><strong>Status:</strong> ${vehicle.status}</li>
+          <li><strong>Amount Credited:</strong> ${vehicle.amountCredited}</li>
+          <li><strong>Monthly Deposits:</strong> ${vehicle.monthlyDeposits}</li>
+        `;
 
-            const vehicleModal = new bootstrap.Modal(document.getElementById('vehicleModal'));
-            vehicleModal.show();
-          });
+        const vehicleModal = new bootstrap.Modal(document.getElementById('vehicleModal'));
+        vehicleModal.show();
       });
     });
   });

@@ -1,5 +1,8 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\SalesController;
+
 
 // Auth routes
 Route::get('/login', function(){
@@ -15,27 +18,29 @@ Route::get('/', function () {
     return view('pages.dashboard');
 })->name('dashboard');
 
-// Vehicle Category routes
-Route::get('/view-vehicles', function () {
-    return view('pages.view-vehicles');
-})->name('view-vehicles');
+
+
+Route::get('/view-vehicles', [VehicleController::class, 'index'])->name('view-vehicles');
+Route::get('/vehicles/{id}', [VehicleController::class, 'show']);
+
+
 
 Route::get('/add-vehicle', function () {
     return view('pages.add-vehicle');
 })->name('add-vehicle');
+
+Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicles.store');
 
 Route::get('/vehicles-on-installment', function () {
     return view('pages.vehicles-on-installment');
 })->name('vehicles-on-installment');
 
 // Sales routes
-Route::get('/view-sales', function () {
-    return view('pages.view-sales');
-})->name('view-sales');
+Route::get('/view-sales', [SalesController::class, 'index'])->name('view-sales');
+Route::get('/sales/{id}', [SalesController::class, 'show']);
 
-Route::get('/record-sale', function () {
-    return view('pages.record-sale');
-})->name('record-sale');
+Route::get('/record-sale', [SalesController::class, 'create'])->name('record-sale');
+Route::post('/record-sale', [SalesController::class, 'store'])->name('sales.store');
 
 // Expense routes
 Route::get('/view-expenses', function () {

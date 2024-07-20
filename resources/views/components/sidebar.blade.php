@@ -109,7 +109,7 @@
             </ul>
         </li><!-- End Reports Nav -->
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link {{ Request::is('user-profile*', 'application-settings*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -125,7 +125,7 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Settings Nav -->
+        </li><!-- End Settings Nav --> --}}
 
     </ul>
 </aside><!-- End Sidebar -->
