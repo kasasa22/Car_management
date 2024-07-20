@@ -11,11 +11,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Manage-incoming-Vehicle</h1>
+      <h1>Record Sales</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">incoming-vehicle</li>
+          <li class="breadcrumb-item active">Record Sales</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

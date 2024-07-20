@@ -11,11 +11,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Manage-Category</h1>
+      <h1>view-expenses</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Manage-Category</li>
+          <li class="breadcrumb-item active">view-expenses</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
