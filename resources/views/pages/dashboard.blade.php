@@ -2,7 +2,7 @@
 
 <body>
 
- @include("components.topnav")
+@include("components.topnav")
 @include("components.sidebar")
 
 <main id="main" class="main">
@@ -23,107 +23,158 @@
       <!-- Left side columns -->
       <div class="col-lg-8">
         <div class="row">
-          <!-- Vehicles Card -->
+          <!-- Total Vehicles Sold Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <div class="card-body">
-                <h5 class="card-title">Total Vehicles</h5>
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-car-front"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>145</h6>
+              <a href="total-vehicles-sold.html">
+                <div class="card-body">
+                  <h5 class="card-title">Total Vehicles Sold</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-car-front"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>145</h6> <!-- Replace with dynamic value -->
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </div><!-- End Vehicles Card -->
+          </div><!-- End Total Vehicles Sold Card -->
 
-          <!-- Incoming Vehicles Card -->
+          <!-- Total Amount Sold Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <div class="card-body">
-                <h5 class="card-title">Total Revenue</h5>
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-car-front-fill"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>145</h6>
+              <a href="total-amount-sold.html">
+                <div class="card-body">
+                  <h5 class="card-title">Total Amount Sold</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>$123,456</h6> <!-- Replace with dynamic value -->
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </div><!-- End Incoming Vehicles Card -->
+          </div><!-- End Total Amount Sold Card -->
 
-          <!-- Outgoing Vehicles Card -->
+          <!-- Total Amount Paid Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <div class="card-body">
-                <h5 class="card-title">Total Expense</h5>
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-ev-front"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>145</h6>
+              <a href="total-amount-paid.html">
+                <div class="card-body">
+                  <h5 class="card-title">Total Amount Paid</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-currency-exchange"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>$98,765</h6> <!-- Replace with dynamic value -->
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </div><!-- End Outgoing Vehicles Card -->
+          </div><!-- End Total Amount Paid Card -->
 
-          <!-- Members Card -->
+          <!-- Total Balance Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <div class="card-body">
-                <h5 class="card-title">Members</h5>
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-person"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>145</h6>
+              <a href="total-balance.html">
+                <div class="card-body">
+                  <h5 class="card-title">Total Balance</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-wallet2"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>$24,691</h6> <!-- Replace with dynamic value -->
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </div><!-- End Members Card -->
+          </div><!-- End Total Balance Card -->
 
-          <!-- Personal Cars Card -->
-          <div class="col-xxl-4 col-xl-12">
-            <div class="card info-card customers-card">
-              <div class="card-body">
-                <h5 class="card-title">Available Cars</h5>
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-cash"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>1244</h6>
+          <!-- Vehicles with Balance Card -->
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+              <a href="vehicles-with-balance.html">
+                <div class="card-body">
+                  <h5 class="card-title">Vehicles with Balance</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-clipboard-check"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>30</h6> <!-- Replace with dynamic value -->
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </div><!-- End Personal Cars Card -->
+          </div><!-- End Vehicles with Balance Card -->
 
-          <!-- Monthly Sales Card -->
-          <div class="col-xxl-4 col-xl-12">
-            <div class="card info-card customers-card">
-              <div class="card-body">
-                <h5 class="card-title">Monthly Sales</h5>
-                <div class="d-flex align-items-center">
-                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-cash"></i>
-                  </div>
-                  <div class="ps-3">
-                    <h6>1244</h6>
+          <!-- Upcoming Payments Card -->
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+              <a href="upcoming-payments.html">
+                <div class="card-body">
+                  <h5 class="card-title">Upcoming Payments</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-calendar3"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>$5,000</h6> <!-- Replace with dynamic value -->
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
-          </div><!-- End Monthly Sales Card -->
+          </div><!-- End Upcoming Payments Card -->
+
+          <!-- Vehicles Owned Card -->
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+              <a href="vehicles-owned.html">
+                <div class="card-body">
+                  <h5 class="card-title">Vehicles Owned</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-car-front-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>200</h6> <!-- Replace with dynamic value -->
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div><!-- End Vehicles Owned Card -->
+
+          <!-- Expenses Card -->
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+              <a href="expenses.html">
+                <div class="card-body">
+                  <h5 class="card-title">Expenses</h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cash-coin"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>$45,000</h6> <!-- Replace with dynamic value -->
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div><!-- End Expenses Card -->
+
         </div>
       </div><!-- End Left side columns -->
 
@@ -146,11 +197,12 @@
           <div class="card-body">
             <h5 class="card-title">Recent Activity <span>| Today</span></h5>
             <div class="activity">
+              <!-- Add dynamic recent activity content here -->
               <div class="activity-item d-flex">
                 <div class="activite-label">32 min</div>
                 <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                 <div class="activity-content">
-                  Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                  Sold a vehicle <a href="#" class="fw-bold text-dark">Toyota Camry</a> for $15,000
                 </div>
               </div><!-- End activity item-->
 
@@ -158,41 +210,12 @@
                 <div class="activite-label">56 min</div>
                 <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                 <div class="activity-content">
-                  Voluptatem blanditiis blanditiis eveniet
+                  Received payment for <a href="#" class="fw-bold text-dark">Honda Accord</a>
                 </div>
               </div><!-- End activity item-->
 
-              <div class="activity-item d-flex">
-                <div class="activite-label">2 hrs</div>
-                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                <div class="activity-content">
-                  Voluptates corrupti molestias voluptatem
-                </div>
-              </div><!-- End activity item-->
+              <!-- Continue adding recent activities here -->
 
-              <div class="activity-item d-flex">
-                <div class="activite-label">1 day</div>
-                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                <div class="activity-content">
-                  Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                </div>
-              </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">2 days</div>
-                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                <div class="activity-content">
-                  Est sit eum reiciendis exercitationem
-                </div>
-              </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">4 weeks</div>
-                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                <div class="activity-content">
-                  Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                </div>
-              </div><!-- End activity item-->
             </div>
           </div>
         </div><!-- End Recent Activity -->
