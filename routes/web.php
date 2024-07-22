@@ -38,7 +38,6 @@ Route::get('/vehicles-on-installment', function () {
 // Sales routes
 Route::get('/view-sales', [SalesController::class, 'index'])->name('view-sales');
 Route::get('/sales/{id}', [SalesController::class, 'show']);
-
 Route::get('/record-sale', [SalesController::class, 'create'])->name('record-sale');
 Route::post('/record-sale', [SalesController::class, 'store'])->name('sales.store');
 
