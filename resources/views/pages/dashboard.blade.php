@@ -26,7 +26,7 @@
           <!-- Total Vehicles Sold Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('total-vehicles-sold') }}">
+
                 <div class="card-body">
                   <h5 class="card-title">Total Vehicles Sold</h5>
                   <div class="d-flex align-items-center">
@@ -45,7 +45,7 @@
           <!-- Total Amount Sold Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('total-amount-sold') }}">
+
                 <div class="card-body">
                   <h5 class="card-title">Total Amount Sold</h5>
                   <div class="d-flex align-items-center">
@@ -64,7 +64,7 @@
           <!-- Total Amount Paid Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('total-amount-paid') }}">
+
                 <div class="card-body">
                   <h5 class="card-title">Total Amount Paid</h5>
                   <div class="d-flex align-items-center">
@@ -76,14 +76,14 @@
                     </div>
                   </div>
                 </div>
-              </a>
+
             </div>
           </div><!-- End Total Amount Paid Card -->
 
           <!-- Total Balance Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('total-balance') }}">
+              
                 <div class="card-body">
                   <h5 class="card-title">Total Balance</h5>
                   <div class="d-flex align-items-center">
@@ -102,7 +102,7 @@
           <!-- Vehicles with Balance Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('vehicles-with-balance') }}">
+
                 <div class="card-body">
                   <h5 class="card-title">Vehicles with Balance</h5>
                   <div class="d-flex align-items-center">
@@ -121,7 +121,7 @@
           <!-- Upcoming Payments Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('upcoming-payments') }}">
+
                 <div class="card-body">
                   <h5 class="card-title">Upcoming Payments</h5>
                   <div class="d-flex align-items-center">
@@ -140,7 +140,7 @@
           <!-- Vehicles Owned Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('vehicles-owned') }}">
+
                 <div class="card-body">
                   <h5 class="card-title">Vehicles Owned</h5>
                   <div class="d-flex align-items-center">
@@ -159,7 +159,7 @@
           <!-- Expenses Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-              <a href="{{ route('expenses') }}">
+
                 <div class="card-body">
                   <h5 class="card-title">Expenses</h5>
                   <div class="d-flex align-items-center">
