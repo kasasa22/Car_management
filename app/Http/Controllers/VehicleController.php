@@ -21,7 +21,7 @@ class VehicleController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'number' => 'required|string|max:255',
             'color' => 'required|string|max:255',
@@ -30,11 +30,13 @@ class VehicleController extends Controller
             'balance' => 'required|numeric',
             'date_bought' => 'required|date',
             'status' => 'required|string|max:255',
-            'amount_credited' => 'required|numeric'
+            'amount_credited' => 'nullable|numeric',
+            'monthly_deposit' => 'nullable|numeric',
         ]);
 
-        Vehicle::create($validatedData);
+        Vehicle::create($validated);
 
-        return redirect()->route('add-vehicle')->with('success', 'Vehicle added successfully!');
+        return redirect()->route('view-vehicles')->with('success', 'Vehicle added successfully!');
     }
+
 }
