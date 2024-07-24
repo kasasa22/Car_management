@@ -12,9 +12,9 @@ class CreateSalesTable extends Migration
             $table->id();
             $table->string('vehicle_name');
             $table->string('customer_name');
-            $table->decimal('amount_paid', 10, 2);
+            $table->bigInteger('amount_paid');
             $table->string('payment_type');
-            $table->decimal('balance', 10, 2)->nullable();
+            $table->bigInteger('balance')->nullable();
             $table->date('sale_date');
             $table->timestamps();
         });
