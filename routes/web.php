@@ -7,10 +7,12 @@ use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\PurchaseController;
 
 
-// Auth routes
-Route::get('/login', function(){
-    return view('auth.login');
-})->name('login');
+use App\Http\Controllers\AuthController;
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::get('/register', function(){
     return view('auth.register');
