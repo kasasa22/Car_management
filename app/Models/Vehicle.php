@@ -28,4 +28,5 @@ class Vehicle extends Model
     {
         return $this->hasMany(InstallmentPlan::class);
     }
+    
 }

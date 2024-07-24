@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,13 +9,18 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('vehicle_name');
+            $table->unsignedBigInteger('vehicle_id');
             $table->string('customer_name');
-            $table->bigInteger('amount_paid');
-            $table->string('payment_type');
-            $table->bigInteger('balance')->nullable();
+            $table->decimal('amount_paid', 10, 2);
+            $table->enum('payment_type', ['full', 'installment']);
+            $table->decimal('balance', 10, 2)->nullable();
+            $table->string('chassis_number');
             $table->date('sale_date');
+            $table->string('vehicle_name');
             $table->timestamps();
+
+            // Foreign key constraint
+            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
         });
     }
 

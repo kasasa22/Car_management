@@ -100,42 +100,79 @@
 
 <!-- Custom JS for Modal -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const viewButtons = document.querySelectorAll('.view-btn');
+    document.addEventListener('DOMContentLoaded', function () {
+        const viewButtons = document.querySelectorAll('.view-btn');
 
-    viewButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const vehicleId = this.getAttribute('data-id');
-
-        fetch(`/vehicles/${vehicleId}`)
-          .then(response => response.json())
-          .then(vehicle => {
-            const detailsList = document.getElementById('vehicleDetails');
-            detailsList.innerHTML = `
-              <li><strong>Vehicle Name:</strong> ${vehicle.name}</li>
-              <li><strong>Vehicle No.:</strong> ${vehicle.number}</li>
-              <li><strong>Color:</strong> ${vehicle.color}</li>
-              <li><strong>Model:</strong> ${vehicle.model}</li>
-              <li><strong>Status:</strong> ${vehicle.status}</li>
-              <li><strong>Customer Name:</strong> ${vehicle.customer_name}</li>
-              <li><strong>Customer Contact:</strong> ${vehicle.customer_contact}</li>
-              <li><strong>Amount Sold:</strong> ${vehicle.amount_sold}</li>
-              <li><strong>Amount Paid:</strong> ${vehicle.amount_paid}</li>
-              <li><strong>Total Amount:</strong> ${vehicle.total_amount}</li>
-              <li><strong>Balance:</strong> ${vehicle.balance}</li>
-              <li><strong>Date Bought:</strong> ${vehicle.date_bought}</li>
-              <li><strong>Period:</strong> ${vehicle.period}</li>
-              <li><strong>Amount Credited:</strong> ${vehicle.amount_credited}</li>
-              <li><strong>Monthly Deposit:</strong> ${vehicle.monthly_deposit}</li>
-            `;
-
-            const vehicleModal = new bootstrap.Modal(document.getElementById('vehicleModal'));
-            vehicleModal.show();
-          });
-      });
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const vehicleId = this.getAttribute('data-id');
+                fetchVehicleDetails(vehicleId);
+            });
+        });
     });
-  });
+
+    function fetchVehicleDetails(vehicleId) {
+        fetch(`/vehicles/${vehicleId}`)
+            .then(response => response.json())
+            .then(vehicle => {
+                updateVehicleDetails(vehicle);
+                const vehicleModal = new bootstrap.Modal(document.getElementById('vehicleModal'));
+                vehicleModal.show();
+            })
+            .catch(error => console.error('Error fetching vehicle details:', error));
+    }
+
+    function updateVehicleDetails(vehicle) {
+        const detailsList = document.getElementById('vehicleDetails');
+        detailsList.innerHTML = `
+            <li><strong>Vehicle Name:</strong> ${vehicle.name}</li>
+            <li><strong>Vehicle No.:</strong> ${vehicle.number}</li>
+            <li><strong>Color:</strong> ${vehicle.color}</li>
+            <li><strong>Model:</strong> ${vehicle.model}</li>
+            <li><strong>Status:</strong> ${vehicle.status}</li>
+            <li><strong>Customer Name:</strong> ${vehicle.customer_name}</li>
+            <li><strong>Customer Contact:</strong> ${vehicle.customer_contact}</li>
+            <li><strong>Amount Sold:</strong> ${vehicle.amount_sold}</li>
+            <li><strong>Amount Paid:</strong> ${vehicle.amount_paid}</li>
+            <li><strong>Total Amount:</strong> ${vehicle.total_amount}</li>
+            <li><strong>Balance:</strong> ${vehicle.balance}</li>
+            <li><strong>Date Bought:</strong> ${vehicle.date_bought}</li>
+            <li><strong>Period:</strong> ${vehicle.period}</li>
+            <li><strong>Amount Credited:</strong> ${vehicle.amount_credited}</li>
+            <li><strong>Monthly Deposit:</strong> ${vehicle.monthly_deposit}</li>
+        `;
+
+        if (vehicle.expenses && vehicle.expenses.length > 0) {
+            detailsList.innerHTML += `<li><strong>Expenses:</strong></li>`;
+            let expensesTable = `
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            vehicle.expenses.forEach(expense => {
+                expensesTable += `
+                    <tr>
+                        <td>${expense.date}</td>
+                        <td>${expense.amount}</td>
+                        <td>${expense.description}</td>
+                    </tr>
+                `;
+            });
+            expensesTable += `</tbody></table>`;
+            detailsList.innerHTML += expensesTable;
+        } else {
+            detailsList.innerHTML += `<li>No expenses recorded for this vehicle.</li>`;
+        }
+    }
 </script>
+
+
 
 </body>
 </html>

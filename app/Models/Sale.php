@@ -1,5 +1,7 @@
 <?php
 
+// app/Models/Sale.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,11 +12,18 @@ class Sale extends Model
     use HasFactory;
 
     protected $fillable = [
-        'vehicle_name', 'customer_name', 'amount_paid', 'payment_type', 'balance', 'sale_date'
+        'vehicle_id',
+        'customer_name',
+        'amount_paid',
+        'payment_type',
+        'balance',
+        'chassis_number',
+        'sale_date',
+        'vehicle_name',
     ];
 
     public function vehicle()
     {
-        return $this->belongsTo(Vehicle::class, 'vehicle_name', 'name');
+        return $this->belongsTo(Vehicle::class);
     }
 }

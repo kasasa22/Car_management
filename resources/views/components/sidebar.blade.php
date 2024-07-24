@@ -24,11 +24,7 @@
                         <i class="bi bi-circle"></i><span>Add New Vehicle</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ url('vehicles-on-installment') }}" class="{{ Request::is('vehicles-on-installment*') ? 'active' : '' }}">
-                        <i class="bi bi-circle"></i><span>Vehicles on Installment</span>
-                    </a>
-                </li>
+           
             </ul>
         </li><!-- End Vehicles Nav -->
 
@@ -45,6 +41,11 @@
                 <li>
                     <a href="{{ url('record-sale') }}" class="{{ Request::is('record-sale*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Record New Sale</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('view-installments') }}" class="{{ Request::is('view-installments*') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>View Installment Plans</span>
                     </a>
                 </li>
             </ul>
@@ -68,23 +69,6 @@
             </ul>
         </li><!-- End Expenses Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('view-installments*', 'record-installment-payment*') ? '' : 'collapsed' }}" data-bs-target="#installments-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-credit-card"></i><span>Installments</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="installments-nav" class="nav-content collapse {{ Request::is('view-installments*', 'record-installment-payment*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ url('view-installments') }}" class="{{ Request::is('view-installments*') ? 'active' : '' }}">
-                        <i class="bi bi-circle"></i><span>View Installment Plans</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url('record-installment-payment') }}" class="{{ Request::is('record-installment-payment*') ? 'active' : '' }}">
-                        <i class="bi bi-circle"></i><span>Record Installment Payment</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Installments Nav -->
 
         <li class="nav-item">
             <a class="nav-link {{ Request::is('sales-report*', 'expense-report*', 'profit-loss-report*') ? '' : 'collapsed' }}" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">

@@ -14,10 +14,15 @@ class VehicleController extends Controller
     }
 
     public function show($id)
-    {
-        $vehicle = Vehicle::findOrFail($id);
-        return response()->json($vehicle);
+{
+    $vehicle = Vehicle::with('expenses')->find($id);
+
+    if (!$vehicle) {
+        return response()->json(['error' => 'Vehicle not found.'], 404);
     }
+
+    return response()->json($vehicle);
+}
 
     public function store(Request $request)
     {
@@ -27,7 +32,7 @@ class VehicleController extends Controller
             'color' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'amount_paid' => 'required|numeric',
-            'balance' => 'required|numeric',
+            'balance' => 'nullable|numeric',
             'date_bought' => 'required|date',
             'status' => 'required|string|max:255',
             'amount_credited' => 'nullable|numeric',
