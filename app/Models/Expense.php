@@ -12,4 +12,9 @@ class Expense extends Model
     protected $fillable = [
         'name', 'amount', 'date', 'category', 'description', 'vehicle_name'
     ];
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class, 'vehicle_name', 'name');
+    }
 }
