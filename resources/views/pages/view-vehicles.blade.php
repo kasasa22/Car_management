@@ -47,6 +47,7 @@
                 <td>{{ $vehicle->model }}</td>
                 <td>{{ $vehicle->status }}</td>
                 <td><button class="btn btn-primary view-btn" data-id="{{ $vehicle->id }}">View</button></td>
+              </tr>
               @endforeach
             </tbody>
           </table>
@@ -95,17 +96,7 @@
 </div>
 
 <!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
 
 <!-- Custom JS for Modal -->
 <script>
