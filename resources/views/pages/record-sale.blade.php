@@ -26,9 +26,14 @@
         <form action="{{ route('sales.store') }}" method="POST">
           @csrf
           <div class="row mb-3">
-            <label for="vehicle_name" class="col-sm-2 col-form-label">Vehicle Name</label>
+            <label for="vehicle_id" class="col-sm-2 col-form-label">Vehicle Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="vehicle_name" name="vehicle_name" placeholder="Enter Vehicle Name" required>
+              <select class="form-control" id="vehicle_id" name="vehicle_id" required>
+                <option value="" disabled selected>Select Vehicle</option>
+                @foreach ($availableVehicles as $vehicle)
+                  <option value="{{ $vehicle->id }}">{{ $vehicle->name }}</option>
+                @endforeach
+              </select>
             </div>
           </div>
           <div class="row mb-3">
