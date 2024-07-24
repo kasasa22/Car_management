@@ -15,7 +15,7 @@ class CreateVehiclesTable extends Migration
             $table->string('color');
             $table->string('model');
             $table->decimal('amount_paid', 10, 2);
-            $table->decimal('balance', 10, 2)->nullable();
+            $table->decimal('balance', 10, 2);
             $table->date('date_bought');
             $table->string('status');
             $table->decimal('amount_credited', 10, 2)->nullable();
