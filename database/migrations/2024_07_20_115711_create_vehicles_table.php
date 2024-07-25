@@ -17,8 +17,10 @@ class CreateVehiclesTable extends Migration
             $table->decimal('balance', 10, 2)->nullable(); // Allowing null values
             $table->date('date_bought');
             $table->string('status')->default('available');
-            $table->decimal('amount_credited', 10, 2)->nullable();
-            $table->decimal('monthly_deposit', 10, 2)->nullable();
+            $table->decimal('amount_credited')->nullable();
+            $table->decimal('period')->nullable();
+            $table->decimal('contact')->nullable();
+            $table->decimal('monthly_deposit')->nullable();
             $table->decimal('total_amount', 10, 2)->nullable();
             $table->string('customer_name')->nullable(); // Allowing null values
             $table->date('sale_date')->nullable(); // Allowing null values

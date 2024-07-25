@@ -1,5 +1,8 @@
-@include("components.header")
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  @include("components.header")
+</head>
 <body>
 
 @include("components.topnav")
@@ -12,7 +15,7 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active">View-Sales</li>
+        <li class="breadcrumb-item active">View Sales</li>
       </ol>
     </nav>
   </div><!-- End Page Title -->
@@ -38,11 +41,14 @@
             @foreach ($sales as $sale)
             <tr>
               <th scope="row">{{ $loop->iteration }}</th>
-              <td>{{ $sale->vehicle_name }}</td>
+              <td>{{ $sale->vehicle->name }}</td>
               <td>{{ $sale->customer_name }}</td>
               <td>{{ $sale->amount_paid }}</td>
               <td>{{ $sale->sale_date }}</td>
-              <td><button class="btn btn-primary view-btn" data-id="{{ $sale->id }}">View</button></td>
+              <td>
+                <button class="btn btn-primary view-btn" data-id="{{ $sale->id }}">View</button>
+                <button class="btn btn-secondary print-btn">Print</button>
+              </td>
             </tr>
             @endforeach
           </tbody>
@@ -116,14 +122,24 @@
           .then(sale => {
             const detailsList = document.getElementById('saleDetails');
             detailsList.innerHTML = `
-              <li><strong>Vehicle Name:</strong> ${sale.vehicle_name}</li>
+              <li><strong>Vehicle Name:</strong> ${sale.vehicle.name}</li>
               <li><strong>Customer Name:</strong> ${sale.customer_name}</li>
+              <li><strong>Customer Contact:</strong> ${sale.customer_contact}</li>
               <li><strong>Amount Paid:</strong> ${sale.amount_paid}</li>
               <li><strong>Sale Date:</strong> ${sale.sale_date}</li>
+              <li><strong>Payment Type:</strong> ${sale.payment_type}</li>
+              <li><strong>Balance:</strong> ${sale.balance}</li>
+              <li><strong>Chassis Number:</strong> ${sale.chassis_number}</li>
+              <li><strong>Total Amount:</strong> ${sale.total_amount}</li>
+              <li><strong>Period:</strong> ${sale.period}</li>
+              <li><strong>Amount Credited:</strong> ${sale.amount_credited}</li>
+              <li><strong>Monthly Deposit:</strong> ${sale.monthly_deposit}</li>
             `;
 
             const saleModal = new bootstrap.Modal(document.getElementById('saleModal'));
             saleModal.show();
+          }).catch(error => {
+            console.error('Error fetching sale details:', error);
           });
       });
     });

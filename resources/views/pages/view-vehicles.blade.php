@@ -132,8 +132,8 @@
             <li><strong>Status:</strong> ${vehicle.status}</li>
             <li><strong>Customer Name:</strong> ${vehicle.customer_name}</li>
             <li><strong>Customer Contact:</strong> ${vehicle.customer_contact}</li>
-            <li><strong>Amount Sold:</strong> ${vehicle.amount_sold}</li>
-            <li><strong>Amount Paid:</strong> ${vehicle.amount_paid}</li>
+            <li><strong>Parking Fee:</strong> shs.100,000</li>
+            <li><strong>Amount Bought:</strong> ${vehicle.amount_paid}</li>
             <li><strong>Total Amount:</strong> ${vehicle.total_amount}</li>
             <li><strong>Balance:</strong> ${vehicle.balance}</li>
             <li><strong>Date Bought:</strong> ${vehicle.date_bought}</li>

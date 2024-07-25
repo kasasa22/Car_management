@@ -50,9 +50,9 @@
             </div>
           </div>
           <div class="row mb-3">
-            <label for="amountPaid" class="col-sm-2 col-form-label">Amount Paid</label>
+            <label for="amountPaid" class="col-sm-2 col-form-label">Amount Bought</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="amountPaid" name="amount_paid" placeholder="Enter Amount Paid">
+              <input type="text" class="form-control" id="amountPaid" name="amount_paid" placeholder="Enter Amount Bought">
             </div>
           </div>
           <div class="row mb-3">

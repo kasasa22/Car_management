@@ -17,6 +17,8 @@ class Vehicle extends Model
         'balance',
         'date_bought',
         'status',
+        'period',
+        'contact',
         'amount_credited',
         'monthly_deposit',
         'total_amount',

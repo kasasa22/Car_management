@@ -57,6 +57,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="customer_contact" class="col-sm-2 col-form-label">Customer Contact</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="customer_contact" name="customer_contact" placeholder="Enter Customer Contact">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="amount_paid" class="col-sm-2 col-form-label">Amount Paid</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="amount_paid" name="amount_paid" placeholder="Enter Amount Paid" required>
@@ -75,6 +81,30 @@
                             <label for="balance" class="col-sm-2 col-form-label">Balance</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="balance" name="balance" placeholder="Enter Balance">
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="total_amount_row" style="display: none;">
+                            <label for="total_amount" class="col-sm-2 col-form-label">Total Amount</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="total_amount" name="total_amount" placeholder="Enter Total Amount">
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="period_row" style="display: none;">
+                            <label for="period" class="col-sm-2 col-form-label">Period</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="period" name="period" placeholder="Enter Period">
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="amount_credited_row" style="display: none;">
+                            <label for="amount_credited" class="col-sm-2 col-form-label">Amount Credited</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="amount_credited" name="amount_credited" placeholder="Enter Amount Credited">
+                            </div>
+                        </div>
+                        <div class="row mb-3" id="monthly_deposit_row" style="display: none;">
+                            <label for="monthly_deposit" class="col-sm-2 col-form-label">Monthly Deposit</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="monthly_deposit" name="monthly_deposit" placeholder="Enter Monthly Deposit">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -116,16 +146,26 @@
         document.addEventListener('DOMContentLoaded', function () {
             const paymentTypeSelect = document.getElementById('payment_type');
             const balanceRow = document.getElementById('balance_row');
+            const totalAmountRow = document.getElementById('total_amount_row');
+            const periodRow = document.getElementById('period_row');
+            const amountCreditedRow = document.getElementById('amount_credited_row');
+            const monthlyDepositRow = document.getElementById('monthly_deposit_row');
 
             paymentTypeSelect.addEventListener('change', function () {
                 if (this.value === 'installment') {
                     balanceRow.style.display = '';
+                    totalAmountRow.style.display = '';
+                    periodRow.style.display = '';
+                    amountCreditedRow.style.display = '';
+                    monthlyDepositRow.style.display = '';
                 } else {
                     balanceRow.style.display = 'none';
+                    totalAmountRow.style.display = 'none';
+                    periodRow.style.display = 'none';
+                    amountCreditedRow.style.display = 'none';
+                    monthlyDepositRow.style.display = 'none';
                 }
             });
-
-            // Removed event.preventDefault();
         });
     </script>
 

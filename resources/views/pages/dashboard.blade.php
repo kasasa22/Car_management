@@ -28,7 +28,7 @@
             <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Total Vehicles Sold</h5>
+                  <h5 class="card-title">Vehicles Available</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-car-front"></i>
@@ -42,65 +42,8 @@
             </div>
           </div><!-- End Total Vehicles Sold Card -->
 
-          <!-- Total Amount Sold Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Total Amount Sold</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$123,456</h6> <!-- Replace with dynamic value -->
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div><!-- End Total Amount Sold Card -->
-
-          <!-- Total Amount Paid Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Total Amount Paid</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-exchange"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$98,765</h6> <!-- Replace with dynamic value -->
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-          </div><!-- End Total Amount Paid Card -->
-
-          <!-- Total Balance Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
-              
-                <div class="card-body">
-                  <h5 class="card-title">Total Balance</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-wallet2"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$24,691</h6> <!-- Replace with dynamic value -->
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div><!-- End Total Balance Card -->
-
-          <!-- Vehicles with Balance Card -->
-          <div class="col-xxl-4 col-md-6">
+           <!-- Vehicles with Balance Card -->
+           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
 
                 <div class="card-body">
@@ -118,24 +61,44 @@
             </div>
           </div><!-- End Vehicles with Balance Card -->
 
-          <!-- Upcoming Payments Card -->
+          <!-- Total Amount Sold Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Upcoming Payments</h5>
+                  <h5 class="card-title">Pending payements</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-calendar3"></i>
+                      <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$5,000</h6> <!-- Replace with dynamic value -->
+                      <h6>$123,456</h6> <!-- Replace with dynamic value -->
                     </div>
                   </div>
                 </div>
               </a>
             </div>
-          </div><!-- End Upcoming Payments Card -->
+          </div><!-- End Total Amount Sold Card -->
+
+
+
+      <!-- Members Card -->
+<div class="col-xxl-4 col-md-6">
+    <div class="card info-card sales-card">
+      <div class="card-body">
+        <h5 class="card-title">Members</h5>
+        <div class="d-flex align-items-center">
+          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+            <i class="bi bi-people"></i> <!-- Changed icon to people -->
+          </div>
+          <div class="ps-3">
+            <h6>3</h6> <!-- Replace with dynamic value for members count -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- End Members Card -->
+
 
           <!-- Vehicles Owned Card -->
           <div class="col-xxl-4 col-md-6">
