@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,15 +13,18 @@ class CreateVehiclesTable extends Migration
             $table->string('number');
             $table->string('color');
             $table->string('model');
-            $table->decimal('amount_paid', 10, 2);
-            $table->decimal('balance', 10, 2);
+            $table->decimal('amount_paid', 10, 2)->nullable(); // Allowing null values
+            $table->decimal('balance', 10, 2)->nullable(); // Allowing null values
             $table->date('date_bought');
-            $table->string('status');
+            $table->string('status')->default('available');
             $table->decimal('amount_credited', 10, 2)->nullable();
             $table->decimal('monthly_deposit', 10, 2)->nullable();
+            $table->decimal('total_amount', 10, 2)->nullable();
+            $table->string('customer_name')->nullable(); // Allowing null values
+            $table->date('sale_date')->nullable(); // Allowing null values
+            $table->string('payment_type')->nullable(); // Allowing null values
             $table->timestamps();
         });
-
     }
 
     public function down()
@@ -30,3 +32,4 @@ class CreateVehiclesTable extends Migration
         Schema::dropIfExists('vehicles');
     }
 }
+
