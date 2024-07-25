@@ -19,7 +19,6 @@ class Sale extends Model
         'balance',
         'chassis_number',
         'sale_date',
-        'vehicle_name',
     ];
 
     public function vehicle()
