@@ -10,10 +10,16 @@ class CreateInstallmentPlansTable extends Migration
     {
         Schema::create('installment_plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
-            $table->date('installment_date');
-            $table->decimal('amount', 10, 2);
+            $table->unsignedBigInteger('vehicle_id');
+            $table->string('customer_name');
+            $table->decimal('total_amount', 10, 2);
+            $table->decimal('monthly_deposit', 10, 2);
+            $table->decimal('balance', 10, 2);
+            $table->integer('period');
+            $table->decimal('amount_credited', 10, 2);
             $table->timestamps();
+
+            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
         });
     }
 
@@ -22,3 +28,4 @@ class CreateInstallmentPlansTable extends Migration
         Schema::dropIfExists('installment_plans');
     }
 }
+

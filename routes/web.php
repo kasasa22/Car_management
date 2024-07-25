@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\InstallmentController;
+use App\Http\Controllers\InstallmentPlanController;
 use App\Http\Controllers\PurchaseController;
 
 
@@ -56,9 +56,8 @@ Route::get('/record-expense', function () {
     return view('pages.record-expense');
 })->name('record-expense');
 // Installment routes
-Route::get('/view-installments', function () {
-    return view('pages.view-installments');
-})->name('view-installments');
+Route::get('/view-installments', [InstallmentPlanController::class, 'index'])->name('view-installments');
+Route::get('/installment-plans/{id}', [InstallmentPlanController::class, 'show']);
 
 Route::get('/record-installment-payment', function () {
     return view('pages.record-installment-payment');
