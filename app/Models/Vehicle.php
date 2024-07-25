@@ -9,9 +9,20 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'number', 'color', 'model', 'status', 'customer_name', 'customer_contact',
-        'amount_sold', 'amount_paid', 'total_amount', 'balance', 'date_bought', 'period',
-        'amount_credited', 'monthly_deposit'
+        'name',
+        'number',
+        'color',
+        'model',
+        'amount_paid',
+        'balance',
+        'date_bought',
+        'status',
+        'amount_credited',
+        'monthly_deposit',
+        'total_amount',
+        'customer_name',
+        'sale_date',
+        'payment_type',
     ];
 
     public function expenses()
@@ -21,12 +32,12 @@ class Vehicle extends Model
 
     public function sales()
     {
-        return $this->hasMany(Sale::class, 'vehicle_name', 'name');
+        return $this->hasMany(Sale::class);
     }
 
     public function installmentPlans()
     {
         return $this->hasMany(InstallmentPlan::class);
     }
-    
+
 }
