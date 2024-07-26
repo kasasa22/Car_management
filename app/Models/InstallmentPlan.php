@@ -10,13 +10,9 @@ class InstallmentPlan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'plan_id',
         'vehicle_id',
-        'customer_name',
-        'total_amount',
-        'monthly_deposit',
-        'balance',
-        'period',
-        'amount_credited',
+        'sales_id',
     ];
 
     public function vehicle()

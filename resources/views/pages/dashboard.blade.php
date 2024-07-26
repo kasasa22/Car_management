@@ -23,120 +23,109 @@
       <!-- Left side columns -->
       <div class="col-lg-8">
         <div class="row">
-          <!-- Total Vehicles Sold Card -->
+          <!-- Vehicles Available Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Vehicles Available</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-car-front"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>145</h6> <!-- Replace with dynamic value -->
-                    </div>
+              <div class="card-body">
+                <h5 class="card-title">Vehicles Available</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-car-front"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ $vehiclesAvailable }}</h6>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
-          </div><!-- End Total Vehicles Sold Card -->
+          </div><!-- End Vehicles Available Card -->
 
-           <!-- Vehicles with Balance Card -->
-           <div class="col-xxl-4 col-md-6">
+          <!-- Vehicles with Balance Card -->
+          <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Vehicles with Balance</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-clipboard-check"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>30</h6> <!-- Replace with dynamic value -->
-                    </div>
+              <div class="card-body">
+                <h5 class="card-title">Vehicles with Balance</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-clipboard-check"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ $vehiclesWithBalance }}</h6>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </div><!-- End Vehicles with Balance Card -->
 
-          <!-- Total Amount Sold Card -->
-          <div class="col-xxl-4 col-md-6">
-            <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Pending payements</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>$123,456</h6> <!-- Replace with dynamic value -->
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div><!-- End Total Amount Sold Card -->
-
-
-
-      <!-- Members Card -->
+        <!-- Pending Payments Card -->
 <div class="col-xxl-4 col-md-6">
     <div class="card info-card sales-card">
-      <div class="card-body">
-        <h5 class="card-title">Members</h5>
-        <div class="d-flex align-items-center">
-          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-            <i class="bi bi-people"></i> <!-- Changed icon to people -->
-          </div>
-          <div class="ps-3">
-            <h6>3</h6> <!-- Replace with dynamic value for members count -->
-          </div>
+        <div class="card-body">
+            <h5 class="card-title">Pending Payments</h5>
+            <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <div class="ps-3">
+                    <h6>${{ number_format($pendingPayments / 1000000, 2) }}M</h6>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div><!-- End Members Card -->
+</div><!-- End Pending Payments Card -->
 
+
+          <!-- Members Card -->
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Members</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ $membersCount }}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Members Card -->
 
           <!-- Vehicles Owned Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-
-                <div class="card-body">
-                  <h5 class="card-title">Vehicles Owned</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-car-front-fill"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>200</h6> <!-- Replace with dynamic value -->
-                    </div>
+              <div class="card-body">
+                <h5 class="card-title">Vehicles Owned</h5>
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-car-front-fill"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ $vehiclesOwned }}</h6>
                   </div>
                 </div>
-              </a>
+              </div>
             </div>
           </div><!-- End Vehicles Owned Card -->
 
           <!-- Expenses Card -->
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card sales-card">
-
                 <div class="card-body">
-                  <h5 class="card-title">Expenses</h5>
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cash-coin"></i>
+                    <h5 class="card-title">Expenses</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-cash-coin"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>Shs.{{ number_format($expenses / 1000000, 2) }}M</h6>
+                        </div>
                     </div>
-                    <div class="ps-3">
-                      <h6>$45,000</h6> <!-- Replace with dynamic value -->
-                    </div>
-                  </div>
                 </div>
-              </a>
             </div>
-          </div><!-- End Expenses Card -->
+        </div><!-- End Expenses Card -->
+
 
         </div>
       </div><!-- End Left side columns -->

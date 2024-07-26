@@ -48,8 +48,9 @@
               <td>{{ $plan->monthly_deposit }}</td>
               <td>{{ $plan->balance }}</td>
               <td>
-                <button class="btn btn-primary pay-btn" data-id="{{ $plan->id }}" data-bs-toggle="modal" data-bs-target="#paymentModal">Pay</button>
+                <button class="btn btn-primary pay-btn" data-vehicle-id="{{ $plan->id }}" data-sale-id="{{ $plan->sale_id }}">Pay</button>
               </td>
+
             </tr>
             @endforeach
           </tbody>
@@ -77,29 +78,29 @@
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Modal Structure -->
+<!-- Payment Modal Structure -->
 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="paymentModalLabel">Make a Payment</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form id="paymentForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentModalLabel">Make Payment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
         <div class="modal-body">
-          <input type="hidden" id="planId" name="plan_id">
-          <div class="mb-3">
-            <label for="paymentAmount" class="form-label">Amount</label>
-            <input type="number" class="form-control" id="paymentAmount" name="amount" required>
-          </div>
+          <form id="paymentForm" method="POST" action="{{ route('make-payment') }}">
+            @csrf
+            <input type="hidden" name="vehicle_id" id="vehicle_id">
+            <input type="hidden" name="sale_id" id="sale_id">
+            <div class="mb-3">
+              <label for="payment_amount" class="form-label">Payment Amount</label>
+              <input type="number" class="form-control" id="payment_amount" name="payment_amount" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Payment</button>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Submit Payment</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
 
 <!-- Vendor JS Files -->
 <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -113,51 +114,26 @@
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
-
-<!-- Custom JS for Modal -->
+<!-- Blade Template -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const payButtons = document.querySelectorAll('.pay-btn');
+    document.addEventListener('DOMContentLoaded', function () {
+      const payButtons = document.querySelectorAll('.pay-btn');
 
-    payButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const planId = this.getAttribute('data-id');
-        document.getElementById('planId').value = planId;
+      payButtons.forEach(button => {
+        button.addEventListener('click', function () {
+          const vehicleId = this.getAttribute('data-vehicle-id');
+          const saleId = this.getAttribute('data-sale-id');
+
+          document.getElementById('vehicle_id').value = vehicleId;
+          document.getElementById('sale_id').value = saleId;
+
+          const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+          paymentModal.show();
+        });
       });
     });
+  </script>
 
-    document.getElementById('paymentForm').addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      const planId = document.getElementById('planId').value;
-      const amount = document.getElementById('paymentAmount').value;
-
-      fetch(`/installment-plans/pay`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-          plan_id: planId,
-          amount: amount
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          location.reload(); // Reload the page to see the updated balance
-        } else {
-          alert('Payment failed: ' + data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while processing the payment.');
-      });
-    });
-  });
-</script>
 
 </body>
 </html>

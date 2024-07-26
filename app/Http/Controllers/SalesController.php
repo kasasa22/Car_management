@@ -91,4 +91,10 @@ class SalesController extends Controller
             return response()->json(['error' => 'Sale not found'], 404);
         }
     }
+    public function print($id)
+{
+    $sale = Sale::with('vehicle')->findOrFail($id);
+    return view('pages.print', compact('sale'));
+}
+
 }

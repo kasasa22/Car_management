@@ -47,7 +47,7 @@
               <td>{{ $sale->sale_date }}</td>
               <td>
                 <button class="btn btn-primary view-btn" data-id="{{ $sale->id }}">View</button>
-                <button class="btn btn-secondary print-btn">Print</button>
+                <a href="{{ route('sales.print', $sale->id) }}" class="btn btn-secondary print-btn">Print</a>
               </td>
             </tr>
             @endforeach
