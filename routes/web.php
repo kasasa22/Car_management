@@ -54,7 +54,7 @@ Route::get('/record-expense', function () {
     return view('pages.record-expense');
 })->name('record-expense');
 // Installment routes
-Route::get('/view-installments', [InstallmentPlanController::class, 'index'])->name('view-installments');
+Route::get('/view-installments', [VehicleController::class, 'viewInstallments'])->name('view-installments');
 Route::get('/installment-plans/{id}', [InstallmentPlanController::class, 'show']);
 
 Route::get('/record-installment-payment', function () {

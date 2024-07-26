@@ -47,5 +47,13 @@ public function store(Request $request)
     return redirect()->route('view-vehicles')->with('success', 'Vehicle added successfully!');
 }
 
+public function viewInstallments()
+{
+    // Fetch vehicles with balance greater than zero
+    $installmentPlans = Vehicle::where('balance', '>', 0)->get();
+
+    return view('pages.view-installments', compact('installmentPlans'));
+}
+
 
 }

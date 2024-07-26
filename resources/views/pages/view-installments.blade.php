@@ -42,7 +42,7 @@
             @foreach ($installmentPlans as $plan)
             <tr>
               <th scope="row">{{ $loop->iteration }}</th>
-              <td>{{ $plan->vehicle->name }}</td>
+              <td>{{ $plan->name }}</td>
               <td>{{ $plan->customer_name }}</td>
               <td>{{ $plan->total_amount }}</td>
               <td>{{ $plan->monthly_deposit }}</td>
@@ -123,7 +123,7 @@
           .then(plan => {
             const detailsList = document.getElementById('installmentDetails');
             detailsList.innerHTML = `
-              <li><strong>Vehicle Name:</strong> ${plan.vehicle.name}</li>
+              <li><strong>Vehicle Name:</strong> ${plan.name}</li>
               <li><strong>Customer Name:</strong> ${plan.customer_name}</li>
               <li><strong>Total Amount:</strong> ${plan.total_amount}</li>
               <li><strong>Monthly Deposit:</strong> ${plan.monthly_deposit}</li>
