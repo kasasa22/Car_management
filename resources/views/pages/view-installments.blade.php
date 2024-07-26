@@ -48,7 +48,7 @@
               <td>{{ $plan->monthly_deposit }}</td>
               <td>{{ $plan->balance }}</td>
               <td>
-                <button class="btn btn-primary view-btn" data-id="{{ $plan->id }}">View</button>
+                <button class="btn btn-primary pay-btn" data-id="{{ $plan->id }}" data-bs-toggle="modal" data-bs-target="#paymentModal">Pay</button>
               </td>
             </tr>
             @endforeach
@@ -77,21 +77,26 @@
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 <!-- Modal Structure -->
-<div class="modal fade" id="installmentModal" tabindex="-1" aria-labelledby="installmentModalLabel" aria-hidden="true">
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="installmentModalLabel">Installment Plan Details</h5>
+        <h5 class="modal-title" id="paymentModalLabel">Make a Payment</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        <ul id="installmentDetails">
-          <!-- Installment details will be populated here -->
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+      <form id="paymentForm">
+        <div class="modal-body">
+          <input type="hidden" id="planId" name="plan_id">
+          <div class="mb-3">
+            <label for="paymentAmount" class="form-label">Amount</label>
+            <input type="number" class="form-control" id="paymentAmount" name="amount" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit Payment</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -112,31 +117,43 @@
 <!-- Custom JS for Modal -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const viewButtons = document.querySelectorAll('.view-btn');
+    const payButtons = document.querySelectorAll('.pay-btn');
 
-    viewButtons.forEach(button => {
+    payButtons.forEach(button => {
       button.addEventListener('click', function () {
         const planId = this.getAttribute('data-id');
+        document.getElementById('planId').value = planId;
+      });
+    });
 
-        fetch(`/installment-plans/${planId}`)
-          .then(response => response.json())
-          .then(plan => {
-            const detailsList = document.getElementById('installmentDetails');
-            detailsList.innerHTML = `
-              <li><strong>Vehicle Name:</strong> ${plan.name}</li>
-              <li><strong>Customer Name:</strong> ${plan.customer_name}</li>
-              <li><strong>Total Amount:</strong> ${plan.total_amount}</li>
-              <li><strong>Monthly Deposit:</strong> ${plan.monthly_deposit}</li>
-              <li><strong>Balance:</strong> ${plan.balance}</li>
-              <li><strong>Period:</strong> ${plan.period}</li>
-              <li><strong>Amount Credited:</strong> ${plan.amount_credited}</li>
-            `;
+    document.getElementById('paymentForm').addEventListener('submit', function (event) {
+      event.preventDefault();
 
-            const installmentModal = new bootstrap.Modal(document.getElementById('installmentModal'));
-            installmentModal.show();
-          }).catch(error => {
-            console.error('Error fetching installment plan details:', error);
-          });
+      const planId = document.getElementById('planId').value;
+      const amount = document.getElementById('paymentAmount').value;
+
+      fetch(`/installment-plans/pay`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+          plan_id: planId,
+          amount: amount
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          location.reload(); // Reload the page to see the updated balance
+        } else {
+          alert('Payment failed: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while processing the payment.');
       });
     });
   });
