@@ -28,22 +28,23 @@ class SalesController extends Controller
             'vehicle_id' => 'required|exists:vehicles,id',
             'customer_name' => 'required|string|max:255',
             'customer_contact' => 'required|string|max:255',
-            'amount_paid' => 'required|numeric',
+            'amount_paid' => 'required|integer',
             'payment_type' => 'required|string|in:full,installment',
             'chassis_number' => 'required|string|max:255',
             'sale_date' => 'required|date',
-            'balance' => 'nullable|numeric',
-            'total_amount' => 'nullable|numeric',
+            'balance' => 'nullable|integer',
+            'total_amount' => 'nullable|integer',
             'period' => 'nullable|string|max:255',
-            'amount_credited' => 'nullable|numeric',
-            'monthly_deposit' => 'nullable|numeric',
+            'amount_credited' => 'nullable|integer',
+            'monthly_deposit' => 'nullable|integer',
         ]);
 
-        DB::transaction(function () use ($request) {
+
+        $response = DB::transaction(function () use ($request) {
             $vehicle = Vehicle::find($request->vehicle_id);
 
             if (!$vehicle) {
-                return response()->json(['success' => false, 'message' => 'Vehicle not found']);
+                throw new \Exception('Vehicle not found');
             }
 
             $sale = Sale::create([
@@ -64,7 +65,7 @@ class SalesController extends Controller
             $vehicle->update([
                 'status' => 'Sold',
                 'customer_name' => $request->customer_name,
-                'customer_contact' => $request->customer_contact,
+                'contact' => $request->contact,
                 'amount_paid' => $request->amount_paid,
                 'balance' => $request->payment_type == 'installment' ? $request->balance : 0,
                 'sale_date' => $request->sale_date,
@@ -74,24 +75,20 @@ class SalesController extends Controller
                 'amount_credited' => $request->amount_credited,
                 'monthly_deposit' => $request->monthly_deposit,
             ]);
+
+            return redirect()->route('view-sales')->with('success', 'Sale created successfully');
         });
 
-
-
-        return redirect()->route('view-sales')->with('success', 'Sale created successfully');
+        return $response;
     }
 
     public function show($id)
-{
-    $sale = Sale::with('vehicle')->find($id);
-    if ($sale) {
-        return response()->json($sale);
-    } else {
-        return response()->json(['error' => 'Sale not found'], 404);
+    {
+        $sale = Sale::with('vehicle')->find($id);
+        if ($sale) {
+            return response()->json($sale);
+        } else {
+            return response()->json(['error' => 'Sale not found'], 404);
+        }
     }
-}
-
-
-
-
 }

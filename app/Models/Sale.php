@@ -1,7 +1,5 @@
 <?php
 
-// app/Models/Sale.php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,11 +12,16 @@ class Sale extends Model
     protected $fillable = [
         'vehicle_id',
         'customer_name',
+        'customer_contact',
         'amount_paid',
         'payment_type',
         'balance',
         'chassis_number',
         'sale_date',
+        'total_amount',
+        'period',
+        'amount_credited',
+        'monthly_deposit',
     ];
 
     public function vehicle()
