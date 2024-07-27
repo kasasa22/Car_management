@@ -4,24 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Expense;
+use App\Models\Vehicle;
 
 class ExpenseController extends Controller
 {
     public function index()
     {
-        $expenses = Expense::all();
+        $expenses = Expense::with('vehicle')->get();
         return view('pages.view-expenses', compact('expenses'));
     }
 
     public function show($id)
     {
-        $expense = Expense::findOrFail($id);
+        $expense = Expense::with('vehicle')->findOrFail($id);
         return response()->json($expense);
     }
 
     public function create()
     {
-        return view('pages.record-expense');
+        $vehicles = Vehicle::all();
+        return view('pages.record-expense', compact('vehicles'));
     }
 
     public function store(Request $request)
@@ -32,7 +34,7 @@ class ExpenseController extends Controller
             'date' => 'required|date',
             'category' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'vehicle_name' => 'nullable|string|max:255',
+            'vehicle_id' => 'required|exists:vehicles,id',
         ]);
 
         Expense::create($validatedData);

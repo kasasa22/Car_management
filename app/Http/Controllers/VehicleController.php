@@ -54,6 +54,12 @@ public function viewInstallments()
 
     return view('pages.view-installments', compact('installmentPlans'));
 }
+public function create()
+{
+    $vehicles = Vehicle::all();
+    return view('pages.record-expense', compact('vehicles'));
+}
+
 
 
 }
