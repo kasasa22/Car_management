@@ -34,24 +34,18 @@
                             <input type="text" class="form-control" id="amount" name="amount" required>
                         </div>
                         <div class="mb-3">
-                            <label for="date" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="date" name="date" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="category" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="category" name="category" required>
-                        </div>
-                        <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="vehicle_id" class="form-label">Vehicle</label>
                             <select class="form-control" id="vehicle_id" name="vehicle_id" required>
-                                @foreach($vehicles as $vehicle)
+                                <option value="" disabled selected>Select Vehicle</option>
+                                @foreach ($availableVehicles as $vehicle)
                                     <option value="{{ $vehicle->id }}">{{ $vehicle->name }}</option>
                                 @endforeach
                             </select>
+
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -67,8 +61,6 @@
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
 </body>

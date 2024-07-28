@@ -1,4 +1,5 @@
 <?php
+// app/Models/Expense.php
 
 namespace App\Models;
 
@@ -9,12 +10,11 @@ class Expense extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name', 'amount', 'date', 'category', 'description', 'vehicle_name'
-    ];
+    protected $fillable = ['name', 'amount', 'description', 'vehicle_id'];
 
     public function vehicle()
     {
-        return $this->belongsTo(Vehicle::class, 'vehicle_name', 'name');
+        return $this->belongsTo(Vehicle::class);
     }
 }
+

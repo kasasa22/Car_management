@@ -2,43 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Expense;
 use App\Models\Vehicle;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ExpenseController extends Controller
 {
     public function index()
     {
-        $expenses = Expense::with('vehicle')->get();
+        $expenses = Expense::all();
         return view('pages.view-expenses', compact('expenses'));
-    }
-
-    public function show($id)
-    {
-        $expense = Expense::with('vehicle')->findOrFail($id);
-        return response()->json($expense);
     }
 
     public function create()
     {
-        $vehicles = Vehicle::all();
-        return view('pages.record-expense', compact('vehicles'));
+        $availableVehicles = Vehicle::where('status', 'Available')->get();
+        return view('pages.record-expense', compact('availableVehicles'));
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'amount' => 'required|numeric',
-            'date' => 'required|date',
-            'category' => 'required|string|max:255',
             'description' => 'nullable|string',
             'vehicle_id' => 'required|exists:vehicles,id',
         ]);
 
-        Expense::create($validatedData);
+        try {
+            DB::transaction(function () use ($request) {
+                $vehicle = Vehicle::find($request->vehicle_id);
 
-        return redirect()->route('view-expenses')->with('success', 'Expense added successfully!');
+                if (!$vehicle) {
+                    throw new Exception('Vehicle not found');
+                }
+
+                Expense::create([
+                    'name' => $request->name,
+                    'amount' => $request->amount,
+                    'description' => $request->description,
+                    'vehicle_id' => $request->vehicle_id,
+                ]);
+            });
+
+            return redirect()->route('view-expenses')->with('success', 'Expense recorded successfully.');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }
