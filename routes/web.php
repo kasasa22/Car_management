@@ -27,6 +27,7 @@ Route::get('/vehicles-on-installment', function () {
 })->name('vehicles-on-installment');
 Route::post('/make-payment', [PaymentController::class, 'makePayment'])->name('make-payment');
 
+
 // Sales routes
 Route::get('/view-sales', [SalesController::class, 'index'])->name('view-sales');
 Route::get('/sales/{id}', [SalesController::class, 'show']);

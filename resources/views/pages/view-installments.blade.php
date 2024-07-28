@@ -117,22 +117,60 @@
 <!-- Blade Template -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const payButtons = document.querySelectorAll('.pay-btn');
+        const payButtons = document.querySelectorAll('.pay-btn');
 
-      payButtons.forEach(button => {
-        button.addEventListener('click', function () {
-          const vehicleId = this.getAttribute('data-vehicle-id');
-          const saleId = this.getAttribute('data-sale-id');
+        payButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const vehicleId = this.getAttribute('data-vehicle-id');
+                const saleId = this.getAttribute('data-sale-id');
 
-          document.getElementById('vehicle_id').value = vehicleId;
-          document.getElementById('sale_id').value = saleId;
+                document.getElementById('vehicle_id').value = vehicleId;
+                document.getElementById('sale_id').value = saleId;
 
-          const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-          paymentModal.show();
+                const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                paymentModal.show();
+            });
         });
-      });
+
+        document.getElementById('paymentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const vehicleId = document.getElementById('vehicle_id').value;
+            const paymentAmount = document.getElementById('payment_amount').value;
+
+            fetch('{{ route('make-payment') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    vehicle_id: vehicleId,
+                    payment_amount: paymentAmount,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const balanceCell = document.querySelector(`button[data-vehicle-id="${vehicleId}"]`).closest('tr').querySelector('td:nth-child(6)');
+                    balanceCell.textContent = data.balance.toFixed(2);
+
+                    // Hide the modal after successful payment
+                    const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                    paymentModal.hide();
+                } else {
+                    // Handle error
+                    alert('Payment failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Payment failed. Please try again.');
+            });
+        });
     });
-  </script>
+    </script>
+
 
 
 </body>
