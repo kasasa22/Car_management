@@ -29,7 +29,7 @@ class Vehicle extends Model
 
     public function expenses()
     {
-        return $this->hasMany(Expense::class, 'vehicle_name', 'name');
+        return $this->hasMany(Expense::class);
     }
 
     public function sales()
