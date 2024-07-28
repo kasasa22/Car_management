@@ -1,0 +1,66 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+class UserController extends Controller
+{
+    /**
+     * Show the user profile.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function profile()
+    {
+        // Assuming the authenticated user is viewing their own profile
+        $user = auth()->user();
+        return view('pages.user-profile', compact('user'));
+    }
+
+    /**
+     * Show the form for editing the user profile.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function editProfile()
+    {
+        $user = auth()->user();
+        return view('pages.edit-profile', compact('user'));
+    }
+
+    /**
+     * Update the user profile in the database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('user.edit-profile')
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+        return redirect()->route('user.profile')->with('success', 'Profile updated successfully.');
+    }
+}

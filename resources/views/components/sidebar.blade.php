@@ -1,7 +1,6 @@
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
-
         <li class="nav-item">
             <a class="nav-link {{ Request::is('/') ? '' : 'collapsed' }}" href="{{ url('/') }}">
                 <i class="bi bi-grid"></i>
@@ -24,7 +23,6 @@
                         <i class="bi bi-circle"></i><span>Add New Vehicle</span>
                     </a>
                 </li>
-           
             </ul>
         </li><!-- End Vehicles Nav -->
 
@@ -69,7 +67,6 @@
             </ul>
         </li><!-- End Expenses Nav -->
 
-
         <li class="nav-item">
             <a class="nav-link {{ Request::is('sales-report*', 'expense-report*', 'profit-loss-report*') ? '' : 'collapsed' }}" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-bar-chart"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -93,23 +90,22 @@
             </ul>
         </li><!-- End Reports Nav -->
 
-        {{-- <li class="nav-item">
-            <a class="nav-link {{ Request::is('user-profile*', 'application-settings*') ? '' : 'collapsed' }}" data-bs-target="#settings-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-gear"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('user-profile*', 'create-user*') ? '' : 'collapsed' }}" data-bs-target="#user-management-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-people"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="settings-nav" class="nav-content collapse {{ Request::is('user-profile*', 'application-settings*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <ul id="user-management-nav" class="nav-content collapse {{ Request::is('user-profile*', 'create-user*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ url('user-profile') }}" class="{{ Request::is('user-profile*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>User Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('application-settings') }}" class="{{ Request::is('application-settings*') ? 'active' : '' }}">
-                        <i class="bi bi-circle"></i><span>Application Settings</span>
+                    <a href="{{ url('create-user') }}" class="{{ Request::is('create-user*') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Create User</span>
                     </a>
                 </li>
             </ul>
-        </li><!-- End Settings Nav --> --}}
-
+        </li><!-- End User Management Nav -->
     </ul>
 </aside><!-- End Sidebar -->
