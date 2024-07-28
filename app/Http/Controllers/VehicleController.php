@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class VehicleController extends Controller
 {
@@ -14,15 +15,31 @@ class VehicleController extends Controller
     }
 
     public function show($id)
-{
-    $vehicle = Vehicle::with('expenses')->find($id);
+    {
+        $vehicle = Vehicle::with('expenses')->find($id);
 
-    if (!$vehicle) {
-        return response()->json(['error' => 'Vehicle not found.'], 404);
+        if (!$vehicle) {
+            return response()->json(['error' => 'Vehicle not found'], 404);
+        }
+
+        // Calculate total expenses
+        $totalExpenses = $vehicle->expenses->sum('amount');
+
+        // Calculate parking fee
+        $parkingFee = 0;
+        if ($vehicle->status === 'Available') {
+            $dateBought = Carbon::parse($vehicle->date_bought);
+            $currentDate = Carbon::now();
+            $daysAvailable = $dateBought->diffInDays($currentDate);
+            $parkingFee = $daysAvailable * 20000;
+        }
+
+        // Add calculated values to the vehicle object
+        $vehicle->total_expenses = $totalExpenses;
+        $vehicle->parking_fee = $parkingFee;
+
+        return response()->json($vehicle);
     }
-
-    return response()->json($vehicle);
-}
 public function store(Request $request)
 {
     $validated = $request->validate([
