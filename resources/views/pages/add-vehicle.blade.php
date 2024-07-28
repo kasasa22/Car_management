@@ -55,12 +55,7 @@
               <input type="text" class="form-control" id="amountPaid" name="amount_paid" placeholder="Enter Amount Bought">
             </div>
           </div>
-          <div class="row mb-3">
-            <label for="balance" class="col-sm-2 col-form-label">Balance</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="balance" name="balance" placeholder="Enter Balance">
-            </div>
-          </div>
+          
           <div class="row mb-3">
             <label for="dateBought" class="col-sm-2 col-form-label">Date Bought</label>
             <div class="col-sm-10">
@@ -76,7 +71,12 @@
               </select>
             </div>
           </div>
-
+          <div class="row mb-3">
+            <label for="blockerFee" class="col-sm-2 col-form-label">Blocker Fee</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="blockerFee" name="blocker_fee" placeholder="Enter Blocker Fee">
+            </div>
+          </div>
           <button type="submit" class="btn btn-primary">Add Vehicle</button>
         </form>
       </div>

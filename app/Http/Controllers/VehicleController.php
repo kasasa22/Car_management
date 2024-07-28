@@ -40,43 +40,41 @@ class VehicleController extends Controller
 
         return response()->json($vehicle);
     }
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'number' => 'required|string|max:255',
-        'color' => 'required|string|max:255',
-        'model' => 'required|string|max:255',
-        'amount_paid' => 'required|numeric',
-        'balance' => 'nullable|numeric',
-        'date_bought' => 'required|date',
-        'status' => 'required|string|max:255',
-        'amount_credited' => 'nullable|numeric',
-        'monthly_deposit' => 'nullable|numeric',
-        'total_amount' => 'nullable|numeric',
-        'customer_name' => 'nullable|string|max:255',
-        'sale_date' => 'nullable|date',
-        'payment_type' => 'nullable|string|max:255',
-    ]);
 
-    Vehicle::create($validated);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'required|string|max:255',
+            'color' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'amount_paid' => 'required|numeric',
+            'balance' => 'nullable|numeric',
+            'date_bought' => 'required|date',
+            'status' => 'required|string|max:255',
+            'amount_credited' => 'nullable|numeric',
+            'monthly_deposit' => 'nullable|numeric',
+            'total_amount' => 'nullable|numeric',
+            'customer_name' => 'nullable|string|max:255',
+            'sale_date' => 'nullable|date',
+            'payment_type' => 'nullable|string|max:255',
+            'blocker_fee' => 'nullable|numeric', // New field
+        ]);
 
-    return redirect()->route('view-vehicles')->with('success', 'Vehicle added successfully!');
-}
+        Vehicle::create($validated);
 
-public function viewInstallments()
-{
-    // Fetch vehicles with balance greater than zero
-    $installmentPlans = Vehicle::where('balance', '>', 0)->get();
+        return redirect()->route('view-vehicles')->with('success', 'Vehicle added successfully!');
+    }
 
-    return view('pages.view-installments', compact('installmentPlans'));
-}
-public function create()
-{
-    $vehicles = Vehicle::all();
-    return view('pages.record-expense', compact('vehicles'));
-}
+    public function viewInstallments()
+    {
+        $installmentPlans = Vehicle::where('balance', '>', 0)->get();
+        return view('pages.view-installments', compact('installmentPlans'));
+    }
 
-
-
+    public function create()
+    {
+        $vehicles = Vehicle::all();
+        return view('pages.record-expense', compact('vehicles'));
+    }
 }

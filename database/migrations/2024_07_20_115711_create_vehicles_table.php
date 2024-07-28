@@ -13,18 +13,19 @@ class CreateVehiclesTable extends Migration
             $table->string('number')->unique();
             $table->string('color');
             $table->string('model');
-            $table->decimal('amount_paid', 15, 2)->nullable(); // Increased precision and scale
-            $table->decimal('balance', 15, 2)->nullable(); // Increased precision and scale
+            $table->decimal('amount_paid', 15, 2)->nullable();
+            $table->decimal('balance', 15, 2)->nullable();
             $table->date('date_bought');
             $table->string('status')->default('available');
-            $table->decimal('amount_credited', 15, 2)->nullable(); // Increased precision and scale
-            $table->string('period')->nullable(); // Changed to string to store textual data
-            $table->string('contact')->nullable(); // Changed to string for contact information
-            $table->decimal('monthly_deposit', 15, 2)->nullable(); // Increased precision and scale
-            $table->decimal('total_amount', 15, 2)->nullable(); // Increased precision and scale
-            $table->string('customer_name')->nullable(); // Allowing null values
-            $table->date('sale_date')->nullable(); // Allowing null values
-            $table->string('payment_type')->nullable(); // Allowing null values
+            $table->decimal('amount_credited', 15, 2)->nullable();
+            $table->string('period')->nullable();
+            $table->string('contact')->nullable();
+            $table->decimal('monthly_deposit', 15, 2)->nullable();
+            $table->decimal('total_amount', 15, 2)->nullable();
+            $table->string('customer_name')->nullable();
+            $table->date('sale_date')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->decimal('blocker_fee', 15, 2)->nullable(); // New column
             $table->timestamps();
         });
     }

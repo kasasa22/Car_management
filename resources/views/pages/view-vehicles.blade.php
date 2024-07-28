@@ -134,6 +134,7 @@
         <li><strong>Customer Contact:</strong> ${vehicle.customer_contact}</li>
         <li><strong>Parking Fee:</strong> shs.${vehicle.parking_fee}</li>
         <li><strong>Amount Bought:</strong> ${vehicle.amount_paid}</li>
+        <li><strong>Blocker Fee:</strong> ${vehicle.blocker_fee}</li>
         <li><strong>Total Amount:</strong> ${vehicle.total_amount}</li>
         <li><strong>Balance:</strong> ${vehicle.balance}</li>
         <li><strong>Date Bought:</strong> ${vehicle.date_bought}</li>
@@ -143,40 +144,46 @@
     `;
 
     if (vehicle.expenses && vehicle.expenses.length > 0) {
-        detailsList.innerHTML += `<li><strong>Expenses:</strong></li>`;
-        let expensesTable = `
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
-        let totalExpenses = 0;
-        vehicle.expenses.forEach(expense => {
-            totalExpenses += parseFloat(expense.amount);
-            expensesTable += `
+    detailsList.innerHTML += `<li><strong>Expenses:</strong></li>`;
+    let totalExpenses = 0;
+    let expensesTable = `
+        <table class="table table-sm">
+            <thead>
                 <tr>
-                    <td>${expense.created_at}</td>
-                    <td>${expense.amount}</td>
-                    <td>${expense.description || 'N/A'}</td>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Description</th>
                 </tr>
-            `;
+            </thead>
+            <tbody>
+    `;
+    vehicle.expenses.forEach(expense => {
+        const expenseDate = new Date(expense.created_at).toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
         });
+        totalExpenses += parseFloat(expense.amount);
         expensesTable += `
-                <tr>
-                    <td colspan="2"><strong>Total Expenses</strong></td>
-                    <td><strong>${totalExpenses.toFixed(2)}</strong></td>
-                </tr>
-            </tbody>
-        </table>`;
-        detailsList.innerHTML += expensesTable;
-    } else {
-        detailsList.innerHTML += `<li>No expenses recorded for this vehicle.</li>`;
-    }
+            <tr>
+                <td>${expenseDate}</td>
+                <td>${expense.amount}</td>
+                <td>${expense.description || 'N/A'}</td>
+            </tr>
+        `;
+    });
+    expensesTable += `
+        <tr>
+            <td><strong>Total Expenses:</strong></td>
+            <td colspan="2">${totalExpenses.toFixed(2)}</td>
+        </tr>
+    `;
+    expensesTable += `</tbody></table>`;
+    detailsList.innerHTML += expensesTable;
+} else {
+    detailsList.innerHTML += `<li>No expenses recorded for this vehicle.</li>`;
+}
+
 }
 
 

@@ -25,6 +25,7 @@ class Vehicle extends Model
         'customer_name',
         'sale_date',
         'payment_type',
+        'blocker_fee', // New field
     ];
 
     public function expenses()
@@ -41,5 +42,4 @@ class Vehicle extends Model
     {
         return $this->hasMany(InstallmentPlan::class);
     }
-
 }
