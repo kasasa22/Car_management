@@ -69,4 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-user', [UserController::class, 'store'])->name('user.store');
     Route::get('/edit-profile', [UserController::class, 'editProfile'])->name('user.edit-profile');
     Route::post('/edit-profile', [UserController::class, 'updateProfile'])->name('user.update-profile');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('user.update-profile');
+
 });

@@ -90,22 +90,28 @@
             </ul>
         </li><!-- End Reports Nav -->
 
+        @if(Auth::user()->is_superadmin)
+
         <li class="nav-item">
             <a class="nav-link {{ Request::is('user-profile*', 'create-user*') ? '' : 'collapsed' }}" data-bs-target="#user-management-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-people"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
+
             <ul id="user-management-nav" class="nav-content collapse {{ Request::is('user-profile*', 'create-user*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ url('user-profile') }}" class="{{ Request::is('user-profile*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>User Profile</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ url('create-user') }}" class="{{ Request::is('create-user*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Create User</span>
                     </a>
                 </li>
+
             </ul>
         </li><!-- End User Management Nav -->
+        @endif
     </ul>
 </aside><!-- End Sidebar -->

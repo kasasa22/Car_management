@@ -20,6 +20,7 @@ class User extends Authenticatable implements AuthenticatableContract
         'username',
         'email',
         'password',
+        'profile_picture',
     ];
 
     /**

@@ -25,7 +25,7 @@
                     <h5 class="card-title">Edit Profile</h5>
 
                     <!-- Profile Edit Form -->
-                    <form action="{{ route('user.update-profile') }}" method="POST">
+                    <form action="{{ route('user.update-profile') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
 
@@ -58,10 +58,23 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="profile_picture" class="col-md-4 col-lg-3 col-form-label">Profile Picture</label>
+                            <div class="col-md-8 col-lg-9">
+                                <input type="file" name="profile_picture" class="form-control">
+                                @if ($user->profile_picture)
+                                    <div class="mt-2">
+                                        <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="img-thumbnail" width="150">
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
-                    </form><!-- End Profile Edit Form -->
+                    </form>
+                    <!-- End Profile Edit Form -->
 
                 </div>
             </div>

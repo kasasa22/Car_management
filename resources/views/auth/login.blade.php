@@ -28,6 +28,17 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: url('assets/img/car.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  </style>
 </head>
 
 <body>
@@ -42,7 +53,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <span class="d-none d-lg-block">DDamba Motors</span>
+                  <span class="d-none d-lg-block"><img src="{{ asset('assets/img/logo.png') }}" alt=""></span>
                 </a>
               </div><!-- End Logo -->
 
