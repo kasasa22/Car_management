@@ -1,48 +1,130 @@
-
-
-@include("components.header")
+@include('components.header')
 
 <body>
+    @include('components.topnav')
+    @include('components.sidebar')
 
- @include("components.topnav")
-@include("components.sidebar")
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Expense Reports</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                    <li class="breadcrumb-item active">Expense Reports</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
 
+        <section class="section dashboard">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <!-- Form and Print Button -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <form id="filter-report" method="GET" action="{{ route('expense-report') }}" class="d-flex">
+                                    <div class="d-flex align-items-center">
+                                        <label for="month_of" class="control-label me-2">Month of:</label>
+                                        <input type="month" id="month_of" name="month_of" class='form-control me-2' value="{{ request()->get('month_of', date('Y-m')) }}">
+                                        <button class="btn add-btnn btn-sm btn-primary">Filter</button>
+                                    </div>
+                                </form>
+                                <button class="btn add-btn btn-sm btn-success" type="button" id="print"><i class="fa fa-print"></i> Print</button>
+                            </div>
 
-  <main id="main" class="main">
+                            <hr>
+                            <div id="report">
+                                <div class="on-print">
+                                    <p>
+                                        <center>Expense Report</center>
+                                    </p>
+                                    <p>
+                                        <center>for the Month of <b>{{ date('F ,Y', strtotime(request()->get('month_of', date('Y-m')) . '-1')) }}</b></center>
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-bordered table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Date</th>
+                                                <th>Expense Name</th>
+                                                <th>Vehicle</th>
 
-    <div class="pagetitle">
-      <h1>Expense-Reports</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Expense-reports</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
+                                                <th>Description</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $expenses = \App\Models\Expense::with('vehicle')
+                                                    ->whereRaw("DATE_FORMAT(created_at, '%Y-%m') = ?", [request()->get('month_of', date('Y-m'))])
+                                                    ->orderBy('created_at', 'asc')
+                                                    ->get();
+                                                $totalAmount = $expenses->sum('amount');
+                                            @endphp
+                                            @forelse ($expenses as $expense)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ date('M d, Y', strtotime($expense->created_at)) }}</td>
+                                                    <td>{{ $expense->name }}</td>
+                                                    <td>{{ $expense->vehicle->name }}</td>
 
-    <section class="section dashboard">
+                                                    <td>{{ $expense->description }}</td>
+                                                    <td class="text-right">{{ number_format($expense->amount, 2) }}</td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <th colspan="6">
+                                                        <center>No Data.</center>
+                                                    </th>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="5">Total</th>
+                                                <th class='text-right'>{{ number_format($totalAmount, 2) }}</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main><!-- End #main -->
 
-    </section>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  </main><!-- End #main -->
+    <!-- Vendor JS Files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
 
+    <script>
+        $('#print').click(function() {
+            var _style = $('<noscript>').append($('style').clone()).html();
+            var _content = $('#report').clone();
+            var nw = window.open("", "_blank", "width=800,height=700");
+            nw.document.write(_style);
+            nw.document.write(_content.html());
+            nw.document.close();
+            nw.print();
+            setTimeout(function() {
+                nw.close();
+            }, 500);
+        });
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
+        $('#filter-report').submit(function(e) {
+            e.preventDefault();
+            location.href = '{{ route("expense-report") }}?' + $(this).serialize();
+        });
+    </script>
 </body>
-
 </html>
