@@ -20,19 +20,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-md-12">
-                            <form id="filter-report" method="GET" action="{{ route('sales-report') }}">
-                                <div class="row form-group">
-                                    <label class="control-label col-md-2 offset-md-2 text-left">Month of: </label>
-                                    <input type="month" name="month_of" class='form-control col-md-4 float-right search-btn' value="{{ request()->get('month_of', date('Y-m')) }}">
-                                    <button class="btn add-btnn float-right btn-sm btn-block btn-primary col-md-2 ml-1">Filter</button>
-                                </div>
-                            </form>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn add-btn btn-sm btn-block btn-success col-md-2 ml-1 float-right" type="button" id="print"><i class="fa fa-print"></i> Print</button>
-                                </div>
+                            <!-- Styling for form and print button container -->
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <form id="filter-report" method="GET" action="{{ route('sales-report') }}" class="d-flex">
+                                    <div class="d-flex align-items-center">
+                                        <label for="month_of" class="control-label me-2">Month of:</label>
+                                        <input type="month" id="month_of" name="month_of" class='form-control me-2' value="{{ request()->get('month_of', date('Y-m')) }}">
+                                        <button class="btn add-btnn btn-sm btn-primary">Filter</button>
+                                    </div>
+                                </form>
+                                <button class="btn add-btn btn-sm btn-success" type="button" id="print"><i class="fa fa-print"></i> Print</button>
                             </div>
+
+                            <hr>
                             <div id="report">
                                 <div class="on-print">
                                     <p>
@@ -49,6 +49,7 @@
                                                 <th>#</th>
                                                 <th>Date</th>
                                                 <th>Vehicle</th>
+                                                <th>Number Plate</th>
                                                 <th>Customer</th>
                                                 <th>Chassis Number</th>
                                                 <th>Amount</th>
@@ -69,13 +70,15 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ date('M d, Y', strtotime($sale->sale_date)) }}</td>
                                                     <td>{{ $sale->vehicle->name }}</td>
+                                                    <td>{{ $sale->vehicle->number }}</td>
+                                                    <td>{{ $sale->customer_name }}</td>
                                                     <td>{{ $sale->chassis_number }}</td>
                                                     <td class="text-right">{{ number_format($sale->amount_paid, 2) }}</td>
                                                     <td class="text-right">{{ number_format($sale->balance, 2) }}</td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <th colspan="6">
+                                                    <th colspan="8">
                                                         <center>No Data.</center>
                                                     </th>
                                                 </tr>
@@ -83,7 +86,7 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th colspan="4">Total</th>
+                                                <th colspan="6">Total</th>
                                                 <th class='text-right'>{{ number_format($totalAmount, 2) }}</th>
                                                 <th class='text-right'>{{ number_format($totalBalance, 2) }}</th>
                                             </tr>
@@ -114,23 +117,30 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-        $('#print').click(function() {
-            var _style = $('<noscript>').append($('style').clone()).html();
-            var _content = $('#report').clone();
-            var nw = window.open("", "_blank", "width=800,height=700");
-            nw.document.write(_style);
-            nw.document.write(_content.html());
-            nw.document.close();
-            nw.print();
-            setTimeout(function() {
-                nw.close();
-            }, 500);
-        });
+        $(document).ready(function() {
+            $('#print').click(function() {
+                var _style = $('<style>').append($('style').clone()).html(); // Cloning styles to the new window
+                var _content = $('#report').clone(); // Cloning content to the new window
+                var nw = window.open("", "_blank", "width=800,height=700");
 
-        $('#filter-report').submit(function(e) {
-            e.preventDefault();
-            location.href = '{{ route("sales-report") }}?' + $(this).serialize();
+                nw.document.open();
+                nw.document.write('<html><head><title>Print Report</title>' + _style + '</head><body>');
+                nw.document.write(_content.html());
+                nw.document.write('</body></html>');
+                nw.document.close();
+                nw.focus(); // Ensure the new window is focused
+                nw.print();
+                setTimeout(function() {
+                    nw.close();
+                }, 500);
+            });
+
+            $('#filter-report').submit(function(e) {
+                e.preventDefault();
+                location.href = '{{ route("sales-report") }}?' + $(this).serialize();
+            });
         });
     </script>
+
 </body>
 </html>
