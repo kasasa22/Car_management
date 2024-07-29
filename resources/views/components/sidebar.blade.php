@@ -100,11 +100,13 @@
                         <i class="bi bi-circle"></i><span>User Profile</span>
                     </a>
                 </li>
+                @if(Auth::user()->is_superadmin)
                 <li>
                     <a href="{{ url('create-user') }}" class="{{ Request::is('create-user*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Create User</span>
                     </a>
                 </li>
+                @endif
             </ul>
         </li><!-- End User Management Nav -->
     </ul>

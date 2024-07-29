@@ -1,4 +1,3 @@
-
 @include('components.header')
 
 <body>
@@ -28,6 +27,14 @@
                             <label for="name">Name</label>
                             <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
                             @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" required>
+                            @error('username')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -69,4 +76,3 @@
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
-@endsection
