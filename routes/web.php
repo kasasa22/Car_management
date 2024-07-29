@@ -52,6 +52,10 @@ Route::middleware('auth')->group(function () {
         return view('pages.record-installment-payment');
     })->name('record-installment-payment');
 
+    Route::get('installments-report', [InstallmentPlanController::class, 'report'])->name('installments-report');
+Route::post('make-payment', [InstallmentPlanController::class, 'pay'])->name('make-payment');
+
+
     // Reports routes
     Route::get('/sales-report', function () {
         return view('pages.sales-report');
@@ -62,6 +66,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profit-loss-report', function () {
         return view('pages.profit-loss-report');
     })->name('profit-loss-report');
+
+    Route::get('/installments-report', [InstallmentPlanController::class, 'report'])->name('installments-report');
+
 
     // User Management routes
     Route::get('/user-profile', [UserController::class, 'profile'])->name('user.profile');

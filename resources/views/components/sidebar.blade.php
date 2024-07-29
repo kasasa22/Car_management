@@ -83,6 +83,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ url('installments-report') }}" class="{{ Request::is('installments-report*') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Installments Report</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ url('profit-loss-report') }}" class="{{ Request::is('profit-loss-report*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Profit/Loss Report</span>
                     </a>
