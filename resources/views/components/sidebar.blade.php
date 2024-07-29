@@ -103,13 +103,11 @@
                         <i class="bi bi-circle"></i><span>User Profile</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="{{ url('create-user') }}" class="{{ Request::is('create-user*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Create User</span>
                     </a>
                 </li>
-
             </ul>
         </li><!-- End User Management Nav -->
         @endif
