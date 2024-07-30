@@ -1,5 +1,8 @@
-@include("components.header")
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @include("components.header")
+</head>
 <body>
 
 @include("components.topnav")
@@ -51,23 +54,27 @@
                                         <th>#</th>
                                         <th>Date</th>
                                         <th>Vehicle</th>
-                                        <th>Installment Plan ID</th>
+                                        <th>Vehicle Number</th>
                                         <th>Amount</th>
                                         <th>Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php
-                                        $totalAmount = $installments->sum('amount');
+                                        $totalAmount = 0;
                                         $totalBalance = $installments->sum('balance');
                                     @endphp
                                     @forelse ($installments as $installment)
+                                        @php
+                                            $vehicleAmount = $installment->vehicle->total_amount;
+                                            $totalAmount += $vehicleAmount;
+                                        @endphp
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ date('M d, Y', strtotime($installment->created_at)) }}</td>
                                             <td>{{ $installment->vehicle->name }}</td>
-                                            <td>{{ $installment->id }}</td>
-                                            <td class="text-right">{{ number_format($installment->amount, 2) }}</td>
+                                            <td>{{ $installment->vehicle->number }}</td>
+                                            <td class="text-right">{{ number_format($vehicleAmount, 2) }}</td>
                                             <td class="text-right">{{ number_format($installment->balance, 2) }}</td>
                                         </tr>
                                     @empty
@@ -125,5 +132,4 @@
 </script>
 
 </body>
-
 </html>
