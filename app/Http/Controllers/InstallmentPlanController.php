@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class InstallmentPlanController extends Controller
 {
@@ -11,11 +12,13 @@ class InstallmentPlanController extends Controller
     {
         $month = $request->get('month_of', date('Y-m'));
 
-        // Fetch sales with related vehicles for the specified month
-        $installments = Sale::with('vehicle')
-            ->whereRaw("DATE_FORMAT(created_at, '%Y-%m') = ?", [$month])
-            ->orderBy('created_at', 'asc')
-            ->get();
+        // Fetch sales with related vehicles for the specified month, excluding full payment types
+        $installments = Sale::whereHas('vehicle', function ($query) {
+            $query->where('payment_type', '!=', 'full');
+        })
+        ->whereRaw("DATE_FORMAT(created_at, '%Y-%m') = ?", [$month])
+        ->orderBy('created_at', 'asc')
+        ->get();
 
         // Calculate totals
         $totalAmount = $installments->sum(function($installment) {
@@ -26,4 +29,3 @@ class InstallmentPlanController extends Controller
         return view('pages.installments-report', compact('installments', 'totalAmount', 'totalBalance', 'month'));
     }
 }
-

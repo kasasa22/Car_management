@@ -102,34 +102,4 @@
     </section>
 </main><!-- End #main -->
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-<!-- Vendor JS Files -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
-
-<script>
-    $('#print').click(function() {
-        var _style = $('<noscript>').append($('style').clone()).html();
-        var _content = $('#report').clone();
-        var nw = window.open("", "_blank", "width=800,height=700");
-        nw.document.write(_style);
-        nw.document.write(_content.html());
-        nw.document.close();
-        nw.print();
-        setTimeout(function() {
-            nw.close();
-        }, 500);
-    });
-
-    $('#filter-report').submit(function(e) {
-        e.preventDefault();
-        location.href = '{{ route("installments-report") }}?' + $(this).serialize();
-    });
-</script>
-
-</body>
-</html>
+<a href="#" class="back-to
