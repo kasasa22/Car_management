@@ -80,4 +80,21 @@ class VehicleController extends Controller
         $vehicles = Vehicle::all();
         return view('pages.record-expense', compact('vehicles'));
     }
+
+
+    public function profitLossReport()
+    {
+        $vehicles = Vehicle::with('expenses')->get();
+        $profitLossData = $vehicles->map(function($vehicle) {
+            $totalExpenses = $vehicle->expenses->sum('amount') + $vehicle->blocker_fee + $vehicle->parking_fee;
+            $profitLoss = $vehicle->total_amount - ($vehicle->amount_paid + $totalExpenses);
+            return [
+                'vehicle' => $vehicle,
+                'total_expenses' => $totalExpenses,
+                'profit_loss' => $profitLoss,
+            ];
+        });
+
+        return view('pages.profit-loss-report', compact('profitLossData'));
+    }
 }

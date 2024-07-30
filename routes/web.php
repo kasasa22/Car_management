@@ -63,9 +63,7 @@ Route::post('make-payment', [InstallmentPlanController::class, 'pay'])->name('ma
     Route::get('/expense-report', function () {
         return view('pages.expense-report');
     })->name('expense-report');
-    Route::get('/profit-loss-report', function () {
-        return view('pages.profit-loss-report');
-    })->name('profit-loss-report');
+    Route::get('/profit-loss-report', [VehicleController::class, 'profitLossReport'])->name('profit-loss-report');
 
     Route::get('/installments-report', [InstallmentPlanController::class, 'report'])->name('installments-report');
 
