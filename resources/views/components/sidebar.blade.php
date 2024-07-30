@@ -74,10 +74,10 @@
         </li><!-- End Expenses Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('sales-report*', 'expense-report*', 'profit-loss-report*') ? '' : 'collapsed' }}" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link {{ Request::is('sales-report*', 'expense-report*', 'profit-loss-report*', 'payments-report*') ? '' : 'collapsed' }}" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-bar-chart"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="reports-nav" class="nav-content collapse {{ Request::is('sales-report*', 'expense-report*', 'profit-loss-report*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <ul id="reports-nav" class="nav-content collapse {{ Request::is('sales-report*', 'expense-report*', 'profit-loss-report*', 'payments-report*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ url('sales-report') }}" class="{{ Request::is('sales-report*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Sales Report</span>
@@ -96,6 +96,11 @@
                 <li>
                     <a href="{{ url('profit-loss-report') }}" class="{{ Request::is('profit-loss-report*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>Profit/Loss Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('payments-report') }}" class="{{ Request::is('payments-report*') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Payments Report</span>
                     </a>
                 </li>
             </ul>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Models\Vehicle;
 use App\Models\Sale;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -22,15 +24,20 @@ class PaymentController extends Controller
             'amount' => 'required|numeric|min:0.01',
         ]);
 
+        $validated['user_id'] = Auth::id();
+
         $vehicle = Vehicle::findOrFail($validated['vehicle_id']);
         $sale = Sale::where('vehicle_id', $validated['vehicle_id'])->firstOrFail();
 
-        $payment = Payment::create([
+        // Create a new payment record
+        Payment::create([
             'vehicle_id' => $validated['vehicle_id'],
             'sale_id' => $sale->id,
             'amount' => $validated['amount'],
+            'user_id' => $validated['user_id'],
         ]);
 
+        // Update the vehicle and sale balances
         $vehicle->balance -= $validated['amount'];
         $sale->balance -= $validated['amount'];
         $vehicle->save();
@@ -40,20 +47,34 @@ class PaymentController extends Controller
     }
 
     public function getSaleDetails($vehicleId)
-{
-    $sale = Sale::where('vehicle_id', $vehicleId)->first();
-    if ($sale) {
-        return response()->json([
-            'customer_name' => $sale->customer_name,
-            'customer_contact' => $sale->customer_contact,
-            'amount_paid' => $sale->amount_paid,
-            'balance' => $sale->balance,
-            'amount_credited' => $sale->amount_credited,
-            'monthly_deposit' => $sale->monthly_deposit,
-        ]);
-    } else {
-        return response()->json(['error' => 'Sale not found'], 404);
+    {
+        $sale = Sale::where('vehicle_id', $vehicleId)->first();
+        if ($sale) {
+            return response()->json([
+                'customer_name' => $sale->customer_name,
+                'customer_contact' => $sale->customer_contact,
+                'amount_paid' => $sale->amount_paid,
+                'balance' => $sale->balance,
+                'amount_credited' => $sale->amount_credited,
+                'monthly_deposit' => $sale->monthly_deposit,
+            ]);
+        } else {
+            return response()->json(['error' => 'Sale not found'], 404);
+        }
+    }
+
+    public function paymentsReport(Request $request)
+    {
+        // Retrieve the current month or the month specified in the request
+        $month = $request->input('month', Carbon::now()->format('Y-m'));
+
+        // Query payments for the specified month
+        $payments = Payment::whereMonth('created_at', '=', Carbon::parse($month)->month)
+                            ->whereYear('created_at', '=', Carbon::parse($month)->year)
+                            ->with(['vehicle', 'user'])
+                            ->get();
+
+        return view('pages.payments-report', compact('payments', 'month'));
     }
 }
 
-}

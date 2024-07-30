@@ -9,7 +9,7 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['vehicle_id', 'sale_id', 'amount'];
+    protected $fillable = ['vehicle_id', 'sale_id','user_id', 'amount'];
 
     public function vehicle()
     {
@@ -19,6 +19,10 @@ class Payment extends Model
     public function sale()
     {
         return $this->belongsTo(Sale::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
 

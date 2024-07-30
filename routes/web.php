@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('installments-report', [InstallmentPlanController::class, 'report'])->name('installments-report');
 Route::post('make-payment', [InstallmentPlanController::class, 'pay'])->name('make-payment');
+Route::get('/payments-report', [PaymentController::class, 'paymentsReport'])->name('payments-report');
+
 
 
     // Reports routes
