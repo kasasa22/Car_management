@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 use App\Models\Vehicle;
+use App\Models\Notification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SalesController extends Controller
 {
@@ -38,7 +39,6 @@ class SalesController extends Controller
             'amount_credited' => 'nullable|integer',
             'monthly_deposit' => 'nullable|integer',
         ]);
-
 
         $response = DB::transaction(function () use ($request) {
             $vehicle = Vehicle::find($request->vehicle_id);
@@ -76,6 +76,12 @@ class SalesController extends Controller
                 'monthly_deposit' => $request->monthly_deposit,
             ]);
 
+            Notification::create([
+                'type' => 'sale_recorded',
+                'message' => 'A new sale has been recorded for vehicle: ' . $vehicle->name.' (Plate: '.$vehicle->number.')',
+                'user_id' => Auth::id(),
+            ]);
+
             return redirect()->route('view-sales')->with('success', 'Sale created successfully');
         });
 
@@ -91,10 +97,10 @@ class SalesController extends Controller
             return response()->json(['error' => 'Sale not found'], 404);
         }
     }
-    public function print($id)
-{
-    $sale = Sale::with('vehicle')->findOrFail($id);
-    return view('pages.print', compact('sale'));
-}
 
+    public function print($id)
+    {
+        $sale = Sale::with('vehicle')->findOrFail($id);
+        return view('pages.print', compact('sale'));
+    }
 }

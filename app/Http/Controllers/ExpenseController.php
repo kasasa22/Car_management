@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use App\Models\Vehicle;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 
 class ExpenseController extends Controller
@@ -39,11 +41,18 @@ class ExpenseController extends Controller
                     throw new Exception('Vehicle not found');
                 }
 
-                Expense::create([
+                $expense = Expense::create([
                     'name' => $request->name,
                     'amount' => $request->amount,
                     'description' => $request->description,
                     'vehicle_id' => $request->vehicle_id,
+                ]);
+
+                // Create a notification for the recorded expense
+                Notification::create([
+                    'type' => 'expense_recorded',
+                    'message' => 'An expense of ' . number_format($request->amount, 2) . ' has been recorded for vehicle: ' . $vehicle->name,
+                    'user_id' => Auth::id(),
                 ]);
             });
 

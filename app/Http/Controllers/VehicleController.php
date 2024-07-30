@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class VehicleController extends Controller
 {
@@ -15,34 +17,31 @@ class VehicleController extends Controller
     }
 
     public function show($id)
-{
-    $vehicle = Vehicle::with('expenses')->find($id);
+    {
+        $vehicle = Vehicle::with('expenses')->find($id);
 
-    if (!$vehicle) {
-        return response()->json(['error' => 'Vehicle not found'], 404);
+        if (!$vehicle) {
+            return response()->json(['error' => 'Vehicle not found'], 404);
+        }
+
+        // Calculate total expenses
+        $totalExpenses = $vehicle->expenses->sum('amount');
+
+        // Calculate parking fee
+        $parkingFee = 0;
+        if ($vehicle->status === 'Available') {
+            $dateBought = Carbon::parse($vehicle->date_bought);
+            $currentDate = Carbon::now();
+            $daysAvailable = $dateBought->diffInDays($currentDate);
+            $parkingFee = floor($daysAvailable) * 20000; // Ensure using complete days only
+        }
+
+        // Add calculated values to the vehicle object
+        $vehicle->total_expenses = $totalExpenses;
+        $vehicle->parking_fee = number_format($parkingFee, 0, '.', ','); // Format to integer with comma separators
+
+        return response()->json($vehicle);
     }
-
-    // Calculate total expenses
-    $totalExpenses = $vehicle->expenses->sum('amount');
-
-    // Calculate parking fee
-    $parkingFee = 0;
-    if ($vehicle->status === 'Available') {
-        $dateBought = Carbon::parse($vehicle->date_bought);
-        $currentDate = Carbon::now();
-        $daysAvailable = $dateBought->diffInDays($currentDate);
-        $parkingFee = floor($daysAvailable) * 20000; // Ensure using complete days only
-    }
-
-    // Add calculated values to the vehicle object
-    $vehicle->total_expenses = $totalExpenses;
-    $vehicle->parking_fee = number_format($parkingFee, 0, '.', ','); // Format to integer with comma separators
-
-    return response()->json($vehicle);
-}
-
-
-
 
     public function store(Request $request)
     {
@@ -64,7 +63,15 @@ class VehicleController extends Controller
             'blocker_fee' => 'nullable|numeric', // New field
         ]);
 
-        Vehicle::create($validated);
+        // Create the vehicle
+        $vehicle = Vehicle::create($validated);
+
+        // Create a notification
+        Notification::create([
+            'type' => 'vehicle_added',
+            'message' => 'A new vehicle has been added: '. $vehicle->name.' (Plate: '.$vehicle->number.')',
+            'user_id' => Auth::id(),
+        ]);
 
         return redirect()->route('view-vehicles')->with('success', 'Vehicle added successfully!');
     }
@@ -80,7 +87,6 @@ class VehicleController extends Controller
         $vehicles = Vehicle::all();
         return view('pages.record-expense', compact('vehicles'));
     }
-
 
     public function profitLossReport(Request $request)
     {

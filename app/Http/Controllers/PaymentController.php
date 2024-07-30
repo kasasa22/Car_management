@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Models\Vehicle;
 use App\Models\Sale;
+use App\Models\Notification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,6 +44,13 @@ class PaymentController extends Controller
         $vehicle->save();
         $sale->save();
 
+        // Create a notification for the payment
+        Notification::create([
+            'type' => 'payment_made',
+            'message' => 'A payment of ' . number_format($validated['amount'], 2) . ' has been made for vehicle: ' . $vehicle->name.' (Plate: '.$vehicle->number.')',
+            'user_id' => Auth::id(),
+        ]);
+
         return redirect()->route('record-payment.create')->with('success', 'Payment made successfully.');
     }
 
@@ -77,4 +85,3 @@ class PaymentController extends Controller
         return view('pages.payments-report', compact('payments', 'month'));
     }
 }
-

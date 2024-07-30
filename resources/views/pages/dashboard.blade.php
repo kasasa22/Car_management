@@ -130,8 +130,8 @@
         </div>
       </div><!-- End Left side columns -->
 
-      <!-- Right side columns -->
-      <div class="col-lg-4">
+       <!-- Right side columns -->
+       <div class="col-lg-4">
         <!-- Recent Activity -->
         <div class="card">
           <div class="filter">
@@ -150,24 +150,15 @@
             <h5 class="card-title">Recent Activity <span>| Today</span></h5>
             <div class="activity">
               <!-- Add dynamic recent activity content here -->
-              <div class="activity-item d-flex">
-                <div class="activite-label">32 min</div>
-                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                <div class="activity-content">
-                  Sold a vehicle <a href="#" class="fw-bold text-dark">Toyota Camry</a> for $15,000
-                </div>
-              </div><!-- End activity item-->
-
-              <div class="activity-item d-flex">
-                <div class="activite-label">56 min</div>
-                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                <div class="activity-content">
-                  Received payment for <a href="#" class="fw-bold text-dark">Honda Accord</a>
-                </div>
-              </div><!-- End activity item-->
-
-              <!-- Continue adding recent activities here -->
-
+              @foreach($recentActivities as $activity)
+                <div class="activity-item d-flex">
+                  <div class="activite-label">{{ $activity->created_at->diffForHumans() }}</div>
+                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                  <div class="activity-content">
+                    {{ $activity->message }}
+                  </div>
+                </div><!-- End activity item-->
+              @endforeach
             </div>
           </div>
         </div><!-- End Recent Activity -->
