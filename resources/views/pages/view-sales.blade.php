@@ -31,6 +31,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Vehicle Name</th>
+              <th scope="col">Vehicle plate</th>
               <th scope="col">Customer Name</th>
               <th scope="col">Amount Paid</th>
               <th scope="col">Sale Date</th>
@@ -42,6 +43,7 @@
             <tr>
               <th scope="row">{{ $loop->iteration }}</th>
               <td>{{ $sale->vehicle->name }}</td>
+              <td>{{ $sale->vehicle->number }}</td>
               <td>{{ $sale->customer_name }}</td>
               <td>{{ $sale->amount_paid }}</td>
               <td>{{ $sale->sale_date }}</td>
