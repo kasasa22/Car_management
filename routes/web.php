@@ -69,6 +69,7 @@ Route::post('make-payment', [InstallmentPlanController::class, 'pay'])->name('ma
 
     Route::get('record-payment', [PaymentController::class, 'create'])->name('record-payment.create');
 Route::post('record-payment', [PaymentController::class, 'store'])->name('record-payment.store');
+Route::get('/get-sale-details/{vehicleId}', [PaymentController::class, 'getSaleDetails']);
 
 
     // User Management routes
