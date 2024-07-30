@@ -27,10 +27,10 @@
         </li><!-- End Vehicles Nav -->
 
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('view-sales*', 'record-sale*') ? '' : 'collapsed' }}" data-bs-target="#sales-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link {{ Request::is('view-sales*', 'record-sale*', 'make-payment*') ? '' : 'collapsed' }}" data-bs-target="#sales-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-bag"></i><span>Sales</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="sales-nav" class="nav-content collapse {{ Request::is('view-sales*', 'record-sale*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <ul id="sales-nav" class="nav-content collapse {{ Request::is('view-sales*', 'record-sale*', 'make-payment*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ url('view-sales') }}" class="{{ Request::is('view-sales*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>View All Sales</span>
@@ -41,9 +41,15 @@
                         <i class="bi bi-circle"></i><span>Record New Sale</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="{{ url('view-installments') }}" class="{{ Request::is('view-installments*') ? 'active' : '' }}">
                         <i class="bi bi-circle"></i><span>View Installment Plans</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('record-payment') }}" class="{{ Request::is('record-payment*') ? 'active' : '' }}">
+                        <i class="bi bi-circle"></i><span>Make Payment</span>
                     </a>
                 </li>
             </ul>
@@ -96,12 +102,10 @@
         </li><!-- End Reports Nav -->
 
         @if(Auth::user()->is_superadmin)
-
         <li class="nav-item">
             <a class="nav-link {{ Request::is('user-profile*', 'create-user*') ? '' : 'collapsed' }}" data-bs-target="#user-management-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-people"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-
             <ul id="user-management-nav" class="nav-content collapse {{ Request::is('user-profile*', 'create-user*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ url('user-profile') }}" class="{{ Request::is('user-profile*') ? 'active' : '' }}">
