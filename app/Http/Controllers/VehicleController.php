@@ -82,19 +82,14 @@ class VehicleController extends Controller
     }
 
 
-    public function profitLossReport()
+    public function profitLossReport(Request $request)
     {
-        $vehicles = Vehicle::with('expenses')->get();
-        $profitLossData = $vehicles->map(function($vehicle) {
-            $totalExpenses = $vehicle->expenses->sum('amount') + $vehicle->blocker_fee + $vehicle->parking_fee;
-            $profitLoss = $vehicle->total_amount - ($vehicle->amount_paid + $totalExpenses);
-            return [
-                'vehicle' => $vehicle,
-                'total_expenses' => $totalExpenses,
-                'profit_loss' => $profitLoss,
-            ];
-        });
+        $month = $request->get('month_of', date('Y-m'));
+        $vehicles = Vehicle::where('status', 'sold')
+            ->whereRaw("DATE_FORMAT(sale_date, '%Y-%m') = ?", [$month])
+            ->with('expenses')
+            ->get();
 
-        return view('pages.profit-loss-report', compact('profitLossData'));
+        return view('pages.profit-loss-report', compact('vehicles', 'month'));
     }
 }
