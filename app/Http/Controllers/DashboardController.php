@@ -15,7 +15,7 @@ class DashboardController extends Controller
         // Fetch data from the database
         $vehiclesAvailable = Vehicle::where('status', 'available')->count();
         $vehiclesWithBalance = Vehicle::where('balance', '>', 0)->count();
-        $pendingPayments = Sale::sum('balance'); // Assuming 'balance' represents pending payments
+        $pendingPayments = Vehicle::sum('balance'); // Assuming 'balance' represents pending payments
         $membersCount = User::count(); // Assuming you have a User model for members
         $vehiclesOwned = Vehicle::count();
         $expenses = Expense::sum('amount'); // Replace this with actual expense data if available
