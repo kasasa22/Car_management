@@ -67,7 +67,7 @@
                     <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div class="ps-3">
-                    <h6>${{ number_format($pendingPayments / 1000000, 2) }}M</h6>
+                    <h6>Shs.{{ number_format($pendingPayments / 1000000, 2) }}M</h6>
                 </div>
             </div>
         </div>
