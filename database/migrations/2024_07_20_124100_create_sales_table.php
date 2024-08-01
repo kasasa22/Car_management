@@ -13,6 +13,7 @@ class CreateSalesTable extends Migration
             $table->foreignId('vehicle_id')->constrained()->onDelete('cascade');
             $table->string('customer_name');
             $table->string('customer_contact');
+            $table->string('customer_location'); // Added customer location
             $table->unsignedBigInteger('amount_paid');
             $table->string('payment_type');
             $table->unsignedBigInteger('balance')->nullable();
@@ -31,3 +32,4 @@ class CreateSalesTable extends Migration
         Schema::dropIfExists('sales');
     }
 }
+
