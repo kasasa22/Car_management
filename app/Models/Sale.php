@@ -13,6 +13,7 @@ class Sale extends Model
         'vehicle_id',
         'customer_name',
         'customer_contact',
+        'customer_location', // Added customer location
         'amount_paid',
         'payment_type',
         'balance',
