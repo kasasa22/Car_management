@@ -63,6 +63,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <label for="customer_location" class="col-sm-2 col-form-label">Customer Location</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="customer_location" name="customer_location" placeholder="Enter Customer Location" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <label for="amount_paid" class="col-sm-2 col-form-label">Amount Paid</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="amount_paid" name="amount_paid" placeholder="Enter Amount Paid" required>
