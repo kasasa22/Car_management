@@ -29,6 +29,7 @@ class SalesController extends Controller
             'vehicle_id' => 'required|exists:vehicles,id',
             'customer_name' => 'required|string|max:255',
             'customer_contact' => 'required|string|max:255',
+            'customer_location' => 'required|string|max:255', // Added customer location
             'amount_paid' => 'required|integer',
             'payment_type' => 'required|string|in:full,installment',
             'chassis_number' => 'required|string|max:255',
@@ -51,6 +52,7 @@ class SalesController extends Controller
                 'vehicle_id' => $vehicle->id,
                 'customer_name' => $request->customer_name,
                 'customer_contact' => $request->customer_contact,
+                'customer_location' => $request->customer_location, // Added customer location
                 'amount_paid' => $request->amount_paid,
                 'payment_type' => $request->payment_type,
                 'balance' => $request->payment_type == 'installment' ? $request->balance : 0,
@@ -65,7 +67,7 @@ class SalesController extends Controller
             $vehicle->update([
                 'status' => 'Sold',
                 'customer_name' => $request->customer_name,
-                'contact' => $request->contact,
+                'contact' => $request->customer_contact,
                 'amount_paid' => $request->amount_paid,
                 'balance' => $request->payment_type == 'installment' ? $request->balance : 0,
                 'sale_date' => $request->sale_date,
