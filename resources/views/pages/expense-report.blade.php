@@ -47,7 +47,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Date</th>
+                                                <th>Recorded on</th>
                                                 <th>Expense Name</th>
                                                 <th>Vehicle</th>
 
