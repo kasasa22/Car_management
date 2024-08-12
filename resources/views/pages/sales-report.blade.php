@@ -47,7 +47,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Date</th>
+                                                <th>Date of Sale</th>
                                                 <th>Vehicle</th>
                                                 <th>Number Plate</th>
                                                 <th>Customer</th>
