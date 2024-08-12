@@ -50,7 +50,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Date</th>
+                                                <th>Date of Payement</th>
                                                 <th>Vehicle</th>
                                                 <th>Vehicle Number</th>
                                                 <th>Amount Paid</th>
