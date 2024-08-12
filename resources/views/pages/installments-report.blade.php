@@ -52,7 +52,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Date</th>
+                                        <th>Date Recorded</th>
                                         <th>Vehicle</th>
                                         <th>Vehicle Number</th>
                                         <th>Amount</th>
