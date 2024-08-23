@@ -22,10 +22,10 @@
       <div class="card-header">
         <b>List of Vehicles</b>
       </div>
-      <div class="card">
-        <div class="card-body">
-          <!-- Vehicles Table -->
-          <table class="table table-hover table-responsive">
+      <div class="card-body">
+        <!-- Vehicles Table -->
+        <div class="table-responsive">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -51,24 +51,24 @@
               @endforeach
             </tbody>
           </table>
-          <!-- End Vehicles Table -->
-
-          <!-- Simulated Pagination Links -->
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-              </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
-          </nav>
-          <!-- End Simulated Pagination Links -->
         </div>
+        <!-- End Vehicles Table -->
+
+        <!-- Simulated Pagination Links -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- End Simulated Pagination Links -->
       </div>
     </div>
   </section>
@@ -77,7 +77,7 @@
 
 <!-- Modal Structure -->
 <div class="modal fade" id="vehicleModal" tabindex="-1" aria-labelledby="vehicleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="vehicleModalLabel">Vehicle Details</h5>
@@ -188,9 +188,6 @@
 
 
 </script>
-
-
-
 
 </body>
 </html>
