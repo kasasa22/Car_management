@@ -2,6 +2,38 @@
 <html lang="en">
 <head>
   @include("components.header")
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Additional responsive styles */
+    .table-responsive {
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-dialog {
+      max-width: 90%;
+      margin: 1.75rem auto;
+    }
+
+    /* Adjust modal title font size on smaller screens */
+    @media (max-width: 576px) {
+      .modal-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .pagetitle h1 {
+        font-size: 1.5rem;
+      }
+      .breadcrumb-item {
+        font-size: 0.875rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -26,35 +58,37 @@
         <b>Sales List</b>
       </div>
       <div class="card-body">
-        <table class="table table-hover table-responsive">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Vehicle Name</th>
-              <th scope="col">Vehicle plate</th>
-              <th scope="col">Customer Name</th>
-              <th scope="col">Amount Paid</th>
-              <th scope="col">Sale Date</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($sales as $sale)
-            <tr>
-              <th scope="row">{{ $loop->iteration }}</th>
-              <td>{{ $sale->vehicle->name }}</td>
-              <td>{{ $sale->vehicle->number }}</td>
-              <td>{{ $sale->customer_name }}</td>
-              <td>{{ $sale->amount_paid }}</td>
-              <td>{{ $sale->sale_date }}</td>
-              <td>
-                <button class="btn btn-primary view-btn" data-id="{{ $sale->id }}">View</button>
-                {{-- <a href="{{ route('sales.print', $sale->id) }}" class="btn btn-secondary print-btn">Print</a> --}}
-              </td>
-            </tr>
-            @endforeach
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Vehicle Name</th>
+                <th scope="col">Vehicle Plate</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Amount Paid</th>
+                <th scope="col">Sale Date</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($sales as $sale)
+              <tr>
+                <th scope="row">{{ $loop->iteration }}</th>
+                <td>{{ $sale->vehicle->name }}</td>
+                <td>{{ $sale->vehicle->number }}</td>
+                <td>{{ $sale->customer_name }}</td>
+                <td>{{ $sale->amount_paid }}</td>
+                <td>{{ $sale->sale_date }}</td>
+                <td>
+                  <button class="btn btn-primary view-btn" data-id="{{ $sale->id }}">View</button>
+                  {{-- <a href="{{ route('sales.print', $sale->id) }}" class="btn btn-secondary print-btn">Print</a> --}}
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
 
         <!-- Simulated Pagination Links -->
         <nav aria-label="Page navigation example">
@@ -98,14 +132,7 @@
 </div>
 
 <!-- Vendor JS Files -->
-<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/vendor/chart.js/chart.umd.js"></script>
-<script src="assets/vendor/echarts/echarts.min.js"></script>
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-<script src="assets/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
