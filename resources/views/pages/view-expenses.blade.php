@@ -24,30 +24,32 @@
                 <div class="card-body">
                     <h5 class="card-title">Expenses</h5>
 
-                    <!-- Expense Table -->
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th>Description</th>
-                                <th>Vehicle Name</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($expenses as $expense)
+                    <!-- Responsive Expense Table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td>{{ $expense->name }}</td>
-                                    <td>{{ $expense->amount }}</td>
-                                    <td>{{ $expense->description }}</td>
-                                    <td>{{ $expense->vehicle->name }}</td>
-                                    <td>{{ $expense->created_at->format('Y-m-d') }}</td>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th>Vehicle Name</th>
+                                    <th>Date</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <!-- End Expense Table -->
+                            </thead>
+                            <tbody>
+                                @foreach ($expenses as $expense)
+                                    <tr>
+                                        <td>{{ $expense->name }}</td>
+                                        <td>{{ $expense->amount }}</td>
+                                        <td>{{ $expense->description }}</td>
+                                        <td>{{ $expense->vehicle->name }}</td>
+                                        <td>{{ $expense->created_at->format('Y-m-d') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- End Responsive Expense Table -->
 
                 </div>
             </div>
