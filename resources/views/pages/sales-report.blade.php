@@ -21,11 +21,11 @@
                     <div class="card-body">
                         <div class="col-md-12">
                             <!-- Styling for form and print button container -->
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <form id="filter-report" method="GET" action="{{ route('sales-report') }}" class="d-flex">
-                                    <div class="d-flex align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                <form id="filter-report" method="GET" action="{{ route('sales-report') }}" class="d-flex flex-wrap mb-2 mb-md-0">
+                                    <div class="d-flex align-items-center flex-wrap">
                                         <label for="month_of" class="control-label me-2">Month of:</label>
-                                        <input type="month" id="month_of" name="month_of" class='form-control me-2' value="{{ request()->get('month_of', date('Y-m')) }}">
+                                        <input type="month" id="month_of" name="month_of" class='form-control me-2 mb-2 mb-md-0' value="{{ request()->get('month_of', date('Y-m')) }}">
                                         <button class="btn add-btnn btn-sm btn-primary">Filter</button>
                                     </div>
                                 </form>
@@ -34,13 +34,9 @@
 
                             <hr>
                             <div id="report">
-                                <div class="on-print">
-                                    <p>
-                                        <center>Sales Report</center>
-                                    </p>
-                                    <p>
-                                        <center>for the Month of <b>{{ date('F ,Y', strtotime(request()->get('month_of', date('Y-m')) . '-1')) }}</b></center>
-                                    </p>
+                                <div class="on-print text-center">
+                                    <p>Sales Report</p>
+                                    <p>for the Month of <b>{{ date('F ,Y', strtotime(request()->get('month_of', date('Y-m')) . '-1')) }}</b></p>
                                 </div>
                                 <div class="row">
                                     <table class="table table-bordered table-responsive">
@@ -73,22 +69,20 @@
                                                     <td>{{ $sale->vehicle->number }}</td>
                                                     <td>{{ $sale->customer_name }}</td>
                                                     <td>{{ $sale->chassis_number }}</td>
-                                                    <td class="text-right">{{ number_format($sale->amount_paid, 2) }}</td>
-                                                    <td class="text-right">{{ number_format($sale->balance, 2) }}</td>
+                                                    <td class="text-end">{{ number_format($sale->amount_paid, 2) }}</td>
+                                                    <td class="text-end">{{ number_format($sale->balance, 2) }}</td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <th colspan="8">
-                                                        <center>No Data.</center>
-                                                    </th>
+                                                    <th colspan="8" class="text-center">No Data.</th>
                                                 </tr>
                                             @endforelse
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <th colspan="6">Total</th>
-                                                <th class='text-right'>{{ number_format($totalAmount, 2) }}</th>
-                                                <th class='text-right'>{{ number_format($totalBalance, 2) }}</th>
+                                                <th class='text-end'>{{ number_format($totalAmount, 2) }}</th>
+                                                <th class='text-end'>{{ number_format($totalBalance, 2) }}</th>
                                             </tr>
                                         </tfoot>
                                     </table>
