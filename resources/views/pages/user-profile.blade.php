@@ -8,7 +8,6 @@
     @include("components.sidebar")
 
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>User Profile</h1>
             <nav>
@@ -20,32 +19,40 @@
         </div><!-- End Page Title -->
 
         <section class="section profile">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">Profile Details</h5>
+                    <h5 class="card-title text-center mb-4">Profile Details</h5>
 
-                    <div class="row">
+                    <div class="text-center mb-4">
+                        <img src="{{ asset('assets/img/default-avatar.png') }}" alt="Profile" class="rounded-circle" width="150">
+                    </div>
+
+                    <div class="row mb-3">
                         <div class="col-lg-3 col-md-4 label">Full Name</div>
                         <div class="col-lg-9 col-md-8">{{ $user->name }}</div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-lg-3 col-md-4 label">Email</div>
                         <div class="col-lg-9 col-md-8">{{ $user->email }}</div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-lg-3 col-md-4 label">Role</div>
-                        <div class="col-lg-9 col-md-8">{{ $user->role }}</div>
+                        <div class="col-lg-9 col-md-8">{{ ucfirst($user->role) }}</div>
                     </div>
 
-                    <div class="text-center mt-3">
-                        <a href="{{ route('user.edit-profile') }}" class="btn btn-primary">Edit Profile</a>
+                    <div class="row mb-3">
+                        <div class="col-lg-3 col-md-4 label">Joined</div>
+                        <div class="col-lg-9 col-md-8">{{ $user->created_at->format('F d, Y') }}</div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="{{ route('user.edit-profile') }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit Profile</a>
                     </div>
                 </div>
             </div>
         </section>
-
     </main><!-- End #main -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -55,5 +62,4 @@
     <script src="assets/js/main.js"></script>
 
 </body>
-
 </html>
