@@ -21,11 +21,11 @@
                     <div class="card-body">
                         <div class="col-md-12">
                             <!-- Form and Print Button -->
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <form id="filter-report" method="GET" action="{{ route('expense-report') }}" class="d-flex">
-                                    <div class="d-flex align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                                <form id="filter-report" method="GET" action="{{ route('expense-report') }}" class="d-flex flex-wrap mb-2 mb-md-0">
+                                    <div class="d-flex align-items-center flex-wrap">
                                         <label for="month_of" class="control-label me-2">Month of:</label>
-                                        <input type="month" id="month_of" name="month_of" class='form-control me-2' value="{{ request()->get('month_of', date('Y-m')) }}">
+                                        <input type="month" id="month_of" name="month_of" class='form-control me-2 mb-2 mb-md-0' value="{{ request()->get('month_of', date('Y-m')) }}">
                                         <button class="btn add-btnn btn-sm btn-primary">Filter</button>
                                     </div>
                                 </form>
@@ -34,61 +34,54 @@
 
                             <hr>
                             <div id="report">
-                                <div class="on-print">
-                                    <p>
-                                        <center>Expense Report</center>
-                                    </p>
-                                    <p>
-                                        <center>for the Month of <b>{{ date('F ,Y', strtotime(request()->get('month_of', date('Y-m')) . '-1')) }}</b></center>
-                                    </p>
+                                <div class="on-print text-center">
+                                    <p>Expense Report</p>
+                                    <p>for the Month of <b>{{ date('F ,Y', strtotime(request()->get('month_of', date('Y-m')) . '-1')) }}</b></p>
                                 </div>
                                 <div class="row">
-                                    <table class="table table-bordered table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Recorded on</th>
-                                                <th>Expense Name</th>
-                                                <th>Vehicle</th>
-
-                                                <th>Description</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $expenses = \App\Models\Expense::with('vehicle')
-                                                    ->whereRaw("DATE_FORMAT(created_at, '%Y-%m') = ?", [request()->get('month_of', date('Y-m'))])
-                                                    ->orderBy('created_at', 'asc')
-                                                    ->get();
-                                                $totalAmount = $expenses->sum('amount');
-                                            @endphp
-                                            @forelse ($expenses as $expense)
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ date('M d, Y', strtotime($expense->created_at)) }}</td>
-                                                    <td>{{ $expense->name }}</td>
-                                                    <td>{{ $expense->vehicle->name }}</td>
-
-                                                    <td>{{ $expense->description }}</td>
-                                                    <td class="text-right">{{ number_format($expense->amount, 2) }}</td>
+                                                    <th>#</th>
+                                                    <th>Recorded on</th>
+                                                    <th>Expense Name</th>
+                                                    <th>Vehicle</th>
+                                                    <th>Description</th>
+                                                    <th>Amount</th>
                                                 </tr>
-                                            @empty
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $expenses = \App\Models\Expense::with('vehicle')
+                                                        ->whereRaw("DATE_FORMAT(created_at, '%Y-%m') = ?", [request()->get('month_of', date('Y-m'))])
+                                                        ->orderBy('created_at', 'asc')
+                                                        ->get();
+                                                    $totalAmount = $expenses->sum('amount');
+                                                @endphp
+                                                @forelse ($expenses as $expense)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ date('M d, Y', strtotime($expense->created_at)) }}</td>
+                                                        <td>{{ $expense->name }}</td>
+                                                        <td>{{ $expense->vehicle->name }}</td>
+                                                        <td>{{ $expense->description }}</td>
+                                                        <td class="text-end">{{ number_format($expense->amount, 2) }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <th colspan="6" class="text-center">No Data.</th>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                            <tfoot>
                                                 <tr>
-                                                    <th colspan="6">
-                                                        <center>No Data.</center>
-                                                    </th>
+                                                    <th colspan="5">Total</th>
+                                                    <th class="text-end">{{ number_format($totalAmount, 2) }}</th>
                                                 </tr>
-                                            @endforelse
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th colspan="5">Total</th>
-                                                <th class='text-right'>{{ number_format($totalAmount, 2) }}</th>
-                                                <th></th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,22 +101,28 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-        $('#print').click(function() {
-            var _style = $('<noscript>').append($('style').clone()).html();
-            var _content = $('#report').clone();
-            var nw = window.open("", "_blank", "width=800,height=700");
-            nw.document.write(_style);
-            nw.document.write(_content.html());
-            nw.document.close();
-            nw.print();
-            setTimeout(function() {
-                nw.close();
-            }, 500);
-        });
+        $(document).ready(function() {
+            $('#print').click(function() {
+                var _style = $('<style>').append($('style').clone()).html(); // Cloning styles to the new window
+                var _content = $('#report').clone(); // Cloning content to the new window
+                var nw = window.open("", "_blank", "width=800,height=700");
 
-        $('#filter-report').submit(function(e) {
-            e.preventDefault();
-            location.href = '{{ route("expense-report") }}?' + $(this).serialize();
+                nw.document.open();
+                nw.document.write('<html><head><title>Print Report</title>' + _style + '</head><body>');
+                nw.document.write(_content.html());
+                nw.document.write('</body></html>');
+                nw.document.close();
+                nw.focus(); // Ensure the new window is focused
+                nw.print();
+                setTimeout(function() {
+                    nw.close();
+                }, 500);
+            });
+
+            $('#filter-report').submit(function(e) {
+                e.preventDefault();
+                location.href = '{{ route("expense-report") }}?' + $(this).serialize();
+            });
         });
     </script>
 </body>
