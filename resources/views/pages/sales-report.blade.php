@@ -39,53 +39,55 @@
                                     <p>for the Month of <b>{{ date('F ,Y', strtotime(request()->get('month_of', date('Y-m')) . '-1')) }}</b></p>
                                 </div>
                                 <div class="row">
-                                    <table class="table table-bordered table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Date of Sale</th>
-                                                <th>Vehicle</th>
-                                                <th>Number Plate</th>
-                                                <th>Customer</th>
-                                                <th>Chassis Number</th>
-                                                <th>Amount</th>
-                                                <th>Balance</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $sales = \App\Models\Sale::with('vehicle')
-                                                    ->whereRaw("DATE_FORMAT(sale_date, '%Y-%m') = ?", [request()->get('month_of', date('Y-m'))])
-                                                    ->orderBy('sale_date', 'asc')
-                                                    ->get();
-                                                $totalAmount = $sales->sum('amount_paid');
-                                                $totalBalance = $sales->sum('balance');
-                                            @endphp
-                                            @forelse ($sales as $sale)
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ date('M d, Y', strtotime($sale->sale_date)) }}</td>
-                                                    <td>{{ $sale->vehicle->name }}</td>
-                                                    <td>{{ $sale->vehicle->number }}</td>
-                                                    <td>{{ $sale->customer_name }}</td>
-                                                    <td>{{ $sale->chassis_number }}</td>
-                                                    <td class="text-end">{{ number_format($sale->amount_paid, 2) }}</td>
-                                                    <td class="text-end">{{ number_format($sale->balance, 2) }}</td>
+                                                    <th>#</th>
+                                                    <th>Date of Sale</th>
+                                                    <th>Vehicle</th>
+                                                    <th>Number Plate</th>
+                                                    <th>Customer</th>
+                                                    <th>Chassis Number</th>
+                                                    <th>Amount</th>
+                                                    <th>Balance</th>
                                                 </tr>
-                                            @empty
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $sales = \App\Models\Sale::with('vehicle')
+                                                        ->whereRaw("DATE_FORMAT(sale_date, '%Y-%m') = ?", [request()->get('month_of', date('Y-m'))])
+                                                        ->orderBy('sale_date', 'asc')
+                                                        ->get();
+                                                    $totalAmount = $sales->sum('amount_paid');
+                                                    $totalBalance = $sales->sum('balance');
+                                                @endphp
+                                                @forelse ($sales as $sale)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ date('M d, Y', strtotime($sale->sale_date)) }}</td>
+                                                        <td>{{ $sale->vehicle->name }}</td>
+                                                        <td>{{ $sale->vehicle->number }}</td>
+                                                        <td>{{ $sale->customer_name }}</td>
+                                                        <td>{{ $sale->chassis_number }}</td>
+                                                        <td class="text-end">{{ number_format($sale->amount_paid, 2) }}</td>
+                                                        <td class="text-end">{{ number_format($sale->balance, 2) }}</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <th colspan="8" class="text-center">No Data.</th>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                            <tfoot>
                                                 <tr>
-                                                    <th colspan="8" class="text-center">No Data.</th>
+                                                    <th colspan="6">Total</th>
+                                                    <th class='text-end'>{{ number_format($totalAmount, 2) }}</th>
+                                                    <th class='text-end'>{{ number_format($totalBalance, 2) }}</th>
                                                 </tr>
-                                            @endforelse
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th colspan="6">Total</th>
-                                                <th class='text-end'>{{ number_format($totalAmount, 2) }}</th>
-                                                <th class='text-end'>{{ number_format($totalBalance, 2) }}</th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                            </tfoot>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
