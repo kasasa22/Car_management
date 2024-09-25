@@ -1,6 +1,3 @@
-Here's an updated version of the README with a more detailed overview:
-
-```markdown
 # Car Management System
 
 This is a comprehensive **Car Management System** developed using Laravel, designed to streamline the management of car dealerships and individual car sales. The system handles car details, sales transactions, installment payments, and provides reporting functionalities to help track sales performance and inventory. 
@@ -22,8 +19,6 @@ This solution is designed for car dealerships of all sizes, helping them automat
 ## Project Structure
 
 The project follows the Laravel directory structure, with key components located in the `resources/views` directory. Below is an outline of the structure:
-
-```
 - app
 - bootstrap
 - config
@@ -50,7 +45,6 @@ The project follows the Laravel directory structure, with key components located
 - storage
 - tests
 - vendor
-```
 
 - **`auth/`**: Contains authentication views (login and registration).
 - **`components/`**: Reusable components like the header, sidebar, and navbar.
