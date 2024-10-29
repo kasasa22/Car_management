@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
-    libzip-dev \  # For ZipArchive
+    libzip-dev \  # For ZipArchive\
     zip \
     unzip \
     git \
