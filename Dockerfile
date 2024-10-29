@@ -8,7 +8,7 @@ WORKDIR /app
 COPY composer.json composer.lock ./
 
 # Install dependencies without dev packages
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist || { echo 'Composer install failed'; exit 1; }
 
 # Copy application files
 COPY . .
@@ -32,12 +32,12 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
+    libzip-dev \  # For ZipArchive
     zip \
     unzip \
     git \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install pdo_mysql
+    && docker-php-ext-install gd pdo_mysql zip
 
 # Enable Apache mod_rewrite for Laravel
 RUN a2enmod rewrite
