@@ -13,8 +13,14 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 # Copy application files
 COPY . .
 
+# Copy the environment file and generate the application key
+RUN cp .env.example .env && php artisan key:generate
+
 # Optimize Laravel cache for production
-RUN php artisan config:cache \
+RUN php artisan config:clear \
+    && php artisan route:clear \
+    && php artisan view:clear \
+    && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
 
@@ -40,7 +46,8 @@ RUN a2enmod rewrite
 COPY --from=build /app /var/www/html
 
 # Set permissions for Laravel storage and cache directories
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expose port 80
 EXPOSE 80
